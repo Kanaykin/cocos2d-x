@@ -393,6 +393,7 @@ public:
      */
 #if  (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT)
     Console* getConsole() const { return _console; }
+    void setConsole(Console* console){ _console = console; }
 #endif
 
     /* Gets delta time since last tick to main loop */

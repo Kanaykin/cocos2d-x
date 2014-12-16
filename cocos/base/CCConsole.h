@@ -101,7 +101,7 @@ public:
     /** add custom command */
     void addCommand(const Command& cmd);
     /** log something in the console */
-    void log(const char *buf);
+    virtual void log(const char *buf);
  
 protected:
     void loop();
