@@ -172,7 +172,7 @@ public:
     void delSubCommand(Command& cmd, const std::string& subCmdName);
 
     /** log something in the console */
-    void log(const char *buf);
+    virtual void log(const char *buf);
 
     /**
      * set bind address

@@ -453,6 +453,7 @@ public:
      * @js NA
      */
     Console* getConsole() const { return _console; }
+    void setConsole(Console* console){ _console = console; }
 
     /* Gets delta time since last tick to main loop. */
 	float getDeltaTime() const;
