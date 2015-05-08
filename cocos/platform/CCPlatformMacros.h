@@ -208,9 +208,8 @@ private: varType varName; public: virtual inline varType get##funName(void) cons
 #define __CCLOGWITHFUNCTION(s, ...) \
     cocos2d::log("%s : %s",__FUNCTION__, cocos2d::StringUtils::format(s, ##__VA_ARGS__).c_str())
 
-/// @name Cocos2d debug
-/// @{
-#if !defined(COCOS2D_DEBUG) || COCOS2D_DEBUG == 0
+// cocos2d debug
+#if 1 //!defined(COCOS2D_DEBUG) || COCOS2D_DEBUG == 0
 #define CCLOG(...)       do {} while (0)
 #define CCLOGINFO(...)   do {} while (0)
 #define CCLOGERROR(...)  do {} while (0)
