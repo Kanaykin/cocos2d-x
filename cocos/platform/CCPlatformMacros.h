@@ -211,7 +211,7 @@ public: virtual void set##funName(varType var)   \
     log("%s : %s",__FUNCTION__, StringUtils::format(s, ##__VA_ARGS__).c_str())
 
 // cocos2d debug
-#if !defined(COCOS2D_DEBUG) || COCOS2D_DEBUG == 0
+#if 1 //!defined(COCOS2D_DEBUG) || COCOS2D_DEBUG == 0
 #define CCLOG(...)       do {} while (0)
 #define CCLOGINFO(...)   do {} while (0)
 #define CCLOGERROR(...)  do {} while (0)
