@@ -209,23 +209,23 @@ private: varType varName; public: virtual inline varType get##funName(void) cons
     cocos2d::log("%s : %s",__FUNCTION__, cocos2d::StringUtils::format(s, ##__VA_ARGS__).c_str())
 
 // cocos2d debug
-#if 1 //!defined(COCOS2D_DEBUG) || COCOS2D_DEBUG == 0
+#if 0 //!defined(COCOS2D_DEBUG) || COCOS2D_DEBUG == 0
 #define CCLOG(...)       do {} while (0)
 #define CCLOGINFO(...)   do {} while (0)
 #define CCLOGERROR(...)  do {} while (0)
 #define CCLOGWARN(...)   do {} while (0)
 
-#elif COCOS2D_DEBUG == 1
+#else //COCOS2D_DEBUG == 1
 #define CCLOG(format, ...)      cocos2d::log(format, ##__VA_ARGS__)
 #define CCLOGERROR(format,...)  cocos2d::log(format, ##__VA_ARGS__)
 #define CCLOGINFO(format,...)   do {} while (0)
 #define CCLOGWARN(...) __CCLOGWITHFUNCTION(__VA_ARGS__)
 
-#elif COCOS2D_DEBUG > 1
+/*#else //#elif COCOS2D_DEBUG > 1
 #define CCLOG(format, ...)      cocos2d::log(format, ##__VA_ARGS__)
 #define CCLOGERROR(format,...)  cocos2d::log(format, ##__VA_ARGS__)
 #define CCLOGINFO(format,...)   cocos2d::log(format, ##__VA_ARGS__)
-#define CCLOGWARN(...) __CCLOGWITHFUNCTION(__VA_ARGS__)
+#define CCLOGWARN(...) __CCLOGWITHFUNCTION(__VA_ARGS__)*/
 #endif // COCOS2D_DEBUG
 
 /** Lua engine debug */
