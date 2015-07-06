@@ -30,6 +30,7 @@ THE SOFTWARE.
 #include "base/CCDirector.h"
 #include <algorithm>
 #include "platform/CCFileUtils.h"
+#include "platform/desktop/CCGLViewImpl-desktop.h"
 /**
 @brief    This function change the PVRFrame show/hide setting in register.
 @param  bEnable If true show the PVRFrame window, otherwise hide.
@@ -48,7 +49,7 @@ Application::Application()
     _instance    = GetModuleHandle(nullptr);
     _animationInterval.QuadPart = 0;
     CC_ASSERT(! sm_pSharedApplication);
-    sm_pSharedApplication = this;
+	sm_pSharedApplication = this;
 }
 
 Application::~Application()
@@ -71,14 +72,21 @@ int Application::run()
 
     initGLContextAttrs();
 
+	auto director = Director::getInstance();
+	auto glview = director->getOpenGLView();
+
+	if (!glview) {
+		glview = GLViewImpl::create("Endless");
+		director->setOpenGLView(glview);
+		//glview->setFrameSize(800, 600);     // or whatever
+		//director->setOpenGLView(glview);
+	}
+
     // Initialize instance and cocos2d.
     if (!applicationDidFinishLaunching())
     {
         return 0;
     }
-
-    auto director = Director::getInstance();
-    auto glview = director->getOpenGLView();
 
     // Retain glview to avoid glview being released in the while loop
     glview->retain();
@@ -123,6 +131,9 @@ void Application::setAnimationInterval(double interval)
 Application* Application::getInstance()
 {
     CC_ASSERT(sm_pSharedApplication);
+	if (!sm_pSharedApplication) {
+		//sm_pSharedApplication = new Application();
+	}
     return sm_pSharedApplication;
 }
 
