@@ -2196,7 +2196,7 @@ Animate* Animate::create(Animation *animation)
     Animate *animate = new (std::nothrow) Animate();
     animate->initWithAnimation(animation);
     animate->autorelease();
-
+    
     return animate;
 }
 
@@ -2207,8 +2207,9 @@ Animate::Animate()
 , _executedLoops(0)
 , _animation(nullptr)
 , _frameDisplayedEvent(nullptr)
+, _currFrameIndex(0)
 {
-
+    
 }
 
 Animate::~Animate()
@@ -2222,29 +2223,29 @@ Animate::~Animate()
 bool Animate::initWithAnimation(Animation* animation)
 {
     CCASSERT( animation!=nullptr, "Animate: argument Animation must be non-nullptr");
-
+    
     float singleDuration = animation->getDuration();
-
+    
     if ( ActionInterval::initWithDuration(singleDuration * animation->getLoops() ) )
     {
         _nextFrame = 0;
         setAnimation(animation);
         _origFrame = nullptr;
         _executedLoops = 0;
-
+        
         _splitTimes->reserve(animation->getFrames().size());
-
+        
         float accumUnitsOfTime = 0;
         float newUnitOfTimeValue = singleDuration / animation->getTotalDelayUnits();
-
-        auto frames = animation->getFrames();
-
+        
+        auto& frames = animation->getFrames();
+        
         for (auto& frame : frames)
         {
             float value = (accumUnitsOfTime * newUnitOfTimeValue) / singleDuration;
             accumUnitsOfTime += frame->getDelayUnits();
             _splitTimes->push_back(value);
-        }    
+        }
         return true;
     }
     return false;
@@ -2262,20 +2263,20 @@ void Animate::setAnimation(cocos2d::Animation *animation)
 
 Animate* Animate::clone() const
 {
-	// no copy constructor
-	auto a = new (std::nothrow) Animate();
-	a->initWithAnimation(_animation->clone());
-	a->autorelease();
-	return a;
+    // no copy constructor
+    auto a = new (std::nothrow) Animate();
+    a->initWithAnimation(_animation->clone());
+    a->autorelease();
+    return a;
 }
 
 void Animate::startWithTarget(Node *target)
 {
     ActionInterval::startWithTarget(target);
     Sprite *sprite = static_cast<Sprite*>(target);
-
+    
     CC_SAFE_RELEASE(_origFrame);
-
+    
     if (_animation->getRestoreOriginalFrame())
     {
         _origFrame = sprite->getSpriteFrame();
@@ -2291,7 +2292,7 @@ void Animate::stop()
     {
         static_cast<Sprite*>(_target)->setSpriteFrame(_origFrame);
     }
-
+    
     ActionInterval::stop();
 }
 
@@ -2300,30 +2301,31 @@ void Animate::update(float t)
     // if t==1, ignore. Animation should finish with t==1
     if( t < 1.0f ) {
         t *= _animation->getLoops();
-
+        
         // new loop?  If so, reset frame counter
         unsigned int loopNumber = (unsigned int)t;
         if( loopNumber > _executedLoops ) {
             _nextFrame = 0;
             _executedLoops++;
         }
-
+        
         // new t for animations
         t = fmodf(t, 1.0f);
     }
-
-    auto frames = _animation->getFrames();
+    
+    auto& frames = _animation->getFrames();
     auto numberOfFrames = frames.size();
     SpriteFrame *frameToDisplay = nullptr;
-
+    
     for( int i=_nextFrame; i < numberOfFrames; i++ ) {
         float splitTime = _splitTimes->at(i);
-
+        
         if( splitTime <= t ) {
-            AnimationFrame* frame = frames.at(i);
+            _currFrameIndex = i;
+            AnimationFrame* frame = frames.at(_currFrameIndex);
             frameToDisplay = frame->getSpriteFrame();
             static_cast<Sprite*>(_target)->setSpriteFrame(frameToDisplay);
-
+            
             const ValueMap& dict = frame->getUserInfo();
             if ( !dict.empty() )
             {
@@ -2346,9 +2348,9 @@ void Animate::update(float t)
 
 Animate* Animate::reverse() const
 {
-    auto oldArray = _animation->getFrames();
+    auto& oldArray = _animation->getFrames();
     Vector<AnimationFrame*> newArray(oldArray.size());
-   
+    
     if (oldArray.size() > 0)
     {
         for (auto iter = oldArray.crbegin(); iter != oldArray.crend(); ++iter)
@@ -2358,15 +2360,16 @@ Animate* Animate::reverse() const
             {
                 break;
             }
-
+            
             newArray.pushBack(animFrame->clone());
         }
     }
-
+    
     Animation *newAnim = Animation::create(newArray, _animation->getDelayPerUnit(), _animation->getLoops());
     newAnim->setRestoreOriginalFrame(_animation->getRestoreOriginalFrame());
     return Animate::create(newAnim);
 }
+
 
 // TargetedAction
 
