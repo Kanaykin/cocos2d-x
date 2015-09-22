@@ -2544,7 +2544,7 @@ Animate::Animate()
 , _frameDisplayedEvent(nullptr)
 , _currFrameIndex(0)
 {
-
+    
 }
 
 Animate::~Animate()
@@ -2565,27 +2565,27 @@ bool Animate::initWithAnimation(Animation* animation)
     }
 
     float singleDuration = animation->getDuration();
-
+    
     if ( ActionInterval::initWithDuration(singleDuration * animation->getLoops() ) )
     {
         _nextFrame = 0;
         setAnimation(animation);
         _origFrame = nullptr;
         _executedLoops = 0;
-
+        
         _splitTimes->reserve(animation->getFrames().size());
-
+        
         float accumUnitsOfTime = 0;
         float newUnitOfTimeValue = singleDuration / animation->getTotalDelayUnits();
-
+        
         auto& frames = animation->getFrames();
-
+        
         for (auto& frame : frames)
         {
             float value = (accumUnitsOfTime * newUnitOfTimeValue) / singleDuration;
             accumUnitsOfTime += frame->getDelayUnits();
             _splitTimes->push_back(value);
-        }    
+        }
         return true;
     }
     return false;
@@ -2611,9 +2611,9 @@ void Animate::startWithTarget(Node *target)
 {
     ActionInterval::startWithTarget(target);
     Sprite *sprite = static_cast<Sprite*>(target);
-
+    
     CC_SAFE_RELEASE(_origFrame);
-
+    
     if (_animation->getRestoreOriginalFrame())
     {
         _origFrame = sprite->getSpriteFrame();
@@ -2631,7 +2631,7 @@ void Animate::stop()
         static_cast<Sprite*>(_target)->setSpriteFrame(_origFrame);
         static_cast<Sprite*>(_target)->setBlendFunc(blend);
     }
-
+    
     ActionInterval::stop();
 }
 
@@ -2641,7 +2641,7 @@ void Animate::update(float t)
     if( t < 1.0f )
     {
         t *= _animation->getLoops();
-
+        
         // new loop?  If so, reset frame counter
         unsigned int loopNumber = (unsigned int)t;
         if( loopNumber > _executedLoops )
@@ -2649,7 +2649,7 @@ void Animate::update(float t)
             _nextFrame = 0;
             _executedLoops++;
         }
-
+        
         // new t for animations
         t = fmodf(t, 1.0f);
     }
@@ -2705,15 +2705,16 @@ Animate* Animate::reverse() const
             {
                 break;
             }
-
+            
             newArray.pushBack(animFrame->clone());
         }
     }
-
+    
     Animation *newAnim = Animation::create(newArray, _animation->getDelayPerUnit(), _animation->getLoops());
     newAnim->setRestoreOriginalFrame(_animation->getRestoreOriginalFrame());
     return Animate::create(newAnim);
 }
+
 
 // TargetedAction
 

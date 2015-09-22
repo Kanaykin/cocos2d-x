@@ -1555,10 +1555,10 @@ public:
 CC_CONSTRUCTOR_ACCESS:
     Animate();
     virtual ~Animate();
-
+    
     /** initializes the action with an Animation and will restore the original frame when the animation is over */
     bool initWithAnimation(Animation *animation);
-
+    
 protected:
     std::vector<float>* _splitTimes;
     int             _nextFrame;
@@ -1566,7 +1566,7 @@ protected:
     int _currFrameIndex;
     unsigned int    _executedLoops;
     Animation*      _animation;
-
+    
     EventCustom*    _frameDisplayedEvent;
     AnimationFrame::DisplayedEventInfo _frameDisplayedEventInfo;
 private:
