@@ -93842,6 +93842,55 @@ int lua_cocos2dx_TextureCache_getCachedTextureInfo(lua_State* tolua_S)
 
     return 0;
 }
+
+int lua_cocos2dx_TextureCache_getFileNameForTexture(lua_State* tolua_S)
+{
+    int argc = 0;
+    cocos2d::TextureCache* cobj = nullptr;
+    bool ok  = true;
+    
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+    
+    
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"cc.TextureCache",0,&tolua_err)) goto tolua_lerror;
+#endif
+    
+    cobj = (cocos2d::TextureCache*)tolua_tousertype(tolua_S,1,0);
+    
+#if COCOS2D_DEBUG >= 1
+    if (!cobj)
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_getFileNameForTexture'", nullptr);
+        return 0;
+    }
+#endif
+    
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1)
+    {
+        cocos2d::Texture2D* arg0;
+        
+        ok &= luaval_to_object<cocos2d::Texture2D>(tolua_S, 2, "cc.Texture2D",&arg0);
+        if(!ok)
+            return 0;
+        std::string file_name = cobj->getFileNameForTexture(arg0);
+        tolua_pushcppstring(tolua_S, file_name);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "cc.TextureCache:getFileNameForTexture",argc, 1);
+    return 0;
+    
+#if COCOS2D_DEBUG >= 1
+tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_getFileNameForTexture'.",&tolua_err);
+#endif
+    
+    return 0;
+}
+
 int lua_cocos2dx_TextureCache_addImage(lua_State* tolua_S)
 {
     int argc = 0;
@@ -94382,6 +94431,7 @@ int lua_register_cocos2dx_TextureCache(lua_State* tolua_S)
         tolua_function(tolua_S,"removeUnusedTextures",lua_cocos2dx_TextureCache_removeUnusedTextures);
         tolua_function(tolua_S,"removeTexture",lua_cocos2dx_TextureCache_removeTexture);
         tolua_function(tolua_S,"waitForQuit",lua_cocos2dx_TextureCache_waitForQuit);
+        tolua_function(tolua_S,"getFileNameForTexture", lua_cocos2dx_TextureCache_getFileNameForTexture);
         tolua_function(tolua_S,"setETC1AlphaFileSuffix", lua_cocos2dx_TextureCache_setETC1AlphaFileSuffix);
         tolua_function(tolua_S,"getETC1AlphaFileSuffix", lua_cocos2dx_TextureCache_getETC1AlphaFileSuffix);
     tolua_endmodule(tolua_S);

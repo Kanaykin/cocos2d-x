@@ -219,6 +219,7 @@ public:
     void renameTextureWithKey(const std::string& srcName, const std::string& dstName);
 
 
+    std::string getFileNameForTexture(Texture2D* texture) const;
 private:
     void addImageAsyncCallBack(float dt);
     void loadImage();
