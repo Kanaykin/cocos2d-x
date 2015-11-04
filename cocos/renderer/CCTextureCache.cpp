@@ -529,6 +529,17 @@ void TextureCache::waitForQuit()
     if (_loadingThread) _loadingThread->join();
 }
 
+std::string TextureCache::getFileNameForTexture(Texture2D* texture) const
+{
+    for( auto it = _textures.begin(); it != _textures.end(); ++it ) {
+        Texture2D* tex = it->second;
+        if(tex == texture) {
+            return it->first;
+        }
+    }
+    return std::string();
+}
+
 std::string TextureCache::getCachedTextureInfo() const
 {
     std::string buffer;

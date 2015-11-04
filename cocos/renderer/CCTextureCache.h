@@ -189,6 +189,7 @@ public:
     //called by director, please do not called outside
     void waitForQuit();
 
+    std::string getFileNameForTexture(Texture2D* texture) const;
 private:
     void addImageAsyncCallBack(float dt);
     void loadImage();
