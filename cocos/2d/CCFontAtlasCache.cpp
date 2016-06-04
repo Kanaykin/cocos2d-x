@@ -241,6 +241,15 @@ std::string FontAtlasCache::generateFontName(const std::string& fontFileName, in
     return  tempName.append(ss.str());
 }
 
+void FontAtlasCache::releaseAllFontAtlas()
+{
+	for (auto &item : _atlasMap)
+	{
+		item.second->release();
+	}
+	_atlasMap.clear();
+}
+
 bool FontAtlasCache::releaseFontAtlas(FontAtlas *atlas)
 {
     if (nullptr != atlas)
