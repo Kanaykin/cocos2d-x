@@ -198,6 +198,17 @@ FontAtlas* FontAtlasCache::getFontAtlasCharMap(const std::string& charMapFile, i
     return nullptr;
 }
 
+
+
+void FontAtlasCache::releaseAllFontAtlas()
+{
+	for (auto &item : _atlasMap)
+	{
+		item.second->release();
+	}
+	_atlasMap.clear();
+}
+
 bool FontAtlasCache::releaseFontAtlas(FontAtlas *atlas)
 {
     if (nullptr != atlas)

@@ -49,6 +49,8 @@ public:
     
     static bool releaseFontAtlas(FontAtlas *atlas);
 
+	static void releaseAllFontAtlas();
+
     /** Removes cached data.
      It will purge the textures atlas and if multiple texture exist in one FontAtlas.
      */
