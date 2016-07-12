@@ -245,7 +245,9 @@ void FontAtlasCache::releaseAllFontAtlas()
 {
 	for (auto &item : _atlasMap)
 	{
-		item.second->release();
+		// # TODO: need release all, now we get crash
+		if (item.second->getReferenceCount() > 1)
+			item.second->release();
 	}
 	_atlasMap.clear();
 }
