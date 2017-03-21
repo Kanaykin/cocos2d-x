@@ -270,6 +270,12 @@ Label::Label(FontAtlas *atlas /* = nullptr */, TextHAlignment hAlignment /* = Te
             _batchNodes.clear();
             _batchNodes.push_back(this);
 
+            // New code to insert[start]
+            this->updateFont();
+            this->setTTFConfig(_fontConfig);
+            this->updateContent();
+            // New code to insert[end]
+            
             alignText();
         }
     });
