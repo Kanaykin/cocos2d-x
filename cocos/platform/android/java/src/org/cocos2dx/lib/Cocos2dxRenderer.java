@@ -71,7 +71,13 @@ public class Cocos2dxRenderer implements GLSurfaceView.Renderer {
 
 	@Override
 	public void onSurfaceCreated(final GL10 pGL10, final EGLConfig pEGLConfig) {
-		Cocos2dxRenderer.nativeInit(this.mScreenWidth, this.mScreenHeight);
+		// #HACK: swap height and width if vertical orientation
+		if(this.mScreenWidth < this.mScreenHeight) {
+			Cocos2dxRenderer.nativeInit(this.mScreenHeight, this.mScreenWidth);
+		}
+		else {
+			Cocos2dxRenderer.nativeInit(this.mScreenWidth, this.mScreenHeight);
+		}
 		this.mLastTickInNanoSeconds = System.nanoTime();
 		mNativeInitCompleted = true;
 	}

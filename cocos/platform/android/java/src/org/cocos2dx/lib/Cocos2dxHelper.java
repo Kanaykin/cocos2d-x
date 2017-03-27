@@ -24,6 +24,7 @@ THE SOFTWARE.
  ****************************************************************************/
 package org.cocos2dx.lib;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.LinkedHashSet;
@@ -47,6 +48,8 @@ public class Cocos2dxHelper {
 	// ===========================================================
 	private static final String PREFS_NAME = "Cocos2dxPrefsFile";
 	private static final int RUNNABLES_PER_FRAME = 5;
+	private static final String EXTERNAL_DOCUMENT_PATH = "/sdcard" + File.separator + "Android" + File.separator + "data";
+	private static final String INTERNAL_DOCUMENT_PATH = "/data" + File.separator + "data";
 
 	// ===========================================================
 	// Fields
@@ -72,7 +75,9 @@ public class Cocos2dxHelper {
 	public static void runOnGLThread(final Runnable r) {
 		((Cocos2dxActivity)sActivity).runOnGLThread(r);
 	}
-
+    public static boolean isSdPresent() {
+    	return android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
+    }
 	private static boolean sInited = false;
 	public static void init(final Activity activity) {
 	    if (!sInited) {
@@ -82,6 +87,15 @@ public class Cocos2dxHelper {
                     
     		Cocos2dxHelper.sPackageName = applicationInfo.packageName;
     		Cocos2dxHelper.sFileDirectory = activity.getFilesDir().getAbsolutePath();
+    		
+    		String packageName = applicationInfo.packageName;
+    		
+            if(!isSdPresent())
+            	Cocos2dxHelper.sFileDirectory = INTERNAL_DOCUMENT_PATH + File.separator + packageName;
+            else
+            	Cocos2dxHelper.sFileDirectory = EXTERNAL_DOCUMENT_PATH + File.separator + packageName;
+
+            
             Cocos2dxHelper.nativeSetApkPath(applicationInfo.sourceDir);
     
     		Cocos2dxHelper.sCocos2dxAccelerometer = new Cocos2dxAccelerometer(activity);
