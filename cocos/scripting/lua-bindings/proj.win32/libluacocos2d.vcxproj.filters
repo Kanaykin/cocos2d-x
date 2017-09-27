@@ -430,107 +430,112 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\script\CCBReaderLoad.lua">
+    <CustomBuild Include="..\script\cocos2d\bitExtend.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\cocos2d\OpenglConstants.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\cocos2d\Opengl.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\cocos2d\Cocos2d.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\cocos2d\Cocos2dConstants.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\cocos2d\DeprecatedCocos2dClass.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\cocos2d\DeprecatedCocos2dEnum.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\cocos2d\DeprecatedCocos2dFunc.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\network\DeprecatedNetworkClass.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\network\DeprecatedNetworkEnum.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\network\DeprecatedNetworkFunc.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\cocos2d\DeprecatedOpenglEnum.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\ui\DeprecatedUIEnum.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\ui\DeprecatedUIFunc.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\cocos2d\DrawPrimitives.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\ui\experimentalUIConstants.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\cocos2d\extern.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\ui\GuiConstants.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\cocos2d\json.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\cocos2d\luaj.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\cocos2d\luaoc.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\network\NetworkConstants.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\cocosdenshion\DeprecatedCocosDenshionClass.lua">
+      <Filter>script\cocosdenshion</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\script\cocosbuilder\CCBReaderLoad.lua">
       <Filter>script\cocosbuilder</Filter>
     </None>
-    <None Include="..\script\DeprecatedCocosBuilderClass.lua">
+    <None Include="..\script\cocosbuilder\DeprecatedCocosBuilderClass.lua">
       <Filter>script\cocosbuilder</Filter>
     </None>
-    <None Include="..\script\DeprecatedCocosDenshionClass.lua">
+    <None Include="..\script\cocosdenshion\AudioEngine.lua">
       <Filter>script\cocosdenshion</Filter>
     </None>
-    <None Include="..\script\AudioEngine.lua">
+    <None Include="..\script\cocosdenshion\DeprecatedCocosDenshionFunc.lua">
       <Filter>script\cocosdenshion</Filter>
     </None>
-    <None Include="..\script\DeprecatedCocosDenshionFunc.lua">
-      <Filter>script\cocosdenshion</Filter>
-    </None>
-    <None Include="..\script\DeprecatedCocoStudioClass.lua">
+    <None Include="..\script\cocostudio\CocoStudio.lua">
       <Filter>script\cocostudio</Filter>
     </None>
-    <None Include="..\script\DeprecatedCocoStudioFunc.lua">
+    <None Include="..\script\cocostudio\DeprecatedCocoStudioClass.lua">
       <Filter>script\cocostudio</Filter>
     </None>
-    <None Include="..\script\StudioConstants.lua">
+    <None Include="..\script\cocostudio\DeprecatedCocoStudioFunc.lua">
       <Filter>script\cocostudio</Filter>
     </None>
-    <None Include="..\script\DeprecatedExtensionClass.lua">
+    <None Include="..\script\cocostudio\StudioConstants.lua">
+      <Filter>script\cocostudio</Filter>
+    </None>
+    <None Include="..\script\extension\DeprecatedExtensionClass.lua">
       <Filter>script\extension</Filter>
     </None>
-    <None Include="..\script\DeprecatedExtensionEnum.lua">
+    <None Include="..\script\extension\DeprecatedExtensionEnum.lua">
       <Filter>script\extension</Filter>
     </None>
-    <None Include="..\script\DeprecatedExtensionFunc.lua">
+    <None Include="..\script\extension\DeprecatedExtensionFunc.lua">
       <Filter>script\extension</Filter>
     </None>
-    <None Include="..\script\ExtensionConstants.lua">
+    <None Include="..\script\extension\ExtensionConstants.lua">
       <Filter>script\extension</Filter>
-    </None>
-    <None Include="..\script\cocos2d\bitExtend.lua">
-      <Filter>script\cocos2d</Filter>
-    </None>
-    <None Include="..\script\cocos2d\Cocos2d.lua">
-      <Filter>script\cocos2d</Filter>
-    </None>
-    <None Include="..\script\cocos2d\Cocos2dConstants.lua">
-      <Filter>script\cocos2d</Filter>
-    </None>
-    <None Include="..\script\cocos2d\DeprecatedCocos2dClass.lua">
-      <Filter>script\cocos2d</Filter>
-    </None>
-    <None Include="..\script\cocos2d\DeprecatedCocos2dEnum.lua">
-      <Filter>script\cocos2d</Filter>
-    </None>
-    <None Include="..\script\cocos2d\DeprecatedCocos2dFunc.lua">
-      <Filter>script\cocos2d</Filter>
-    </None>
-    <None Include="..\script\cocos2d\DeprecatedOpenglEnum.lua">
-      <Filter>script\cocos2d</Filter>
-    </None>
-    <None Include="..\script\cocos2d\DrawPrimitives.lua">
-      <Filter>script\cocos2d</Filter>
-    </None>
-    <None Include="..\script\cocos2d\extern.lua">
-      <Filter>script\cocos2d</Filter>
-    </None>
-    <None Include="..\script\cocos2d\json.lua">
-      <Filter>script\cocos2d</Filter>
-    </None>
-    <None Include="..\script\cocos2d\luaj.lua">
-      <Filter>script\cocos2d</Filter>
-    </None>
-    <None Include="..\script\cocos2d\luaoc.lua">
-      <Filter>script\cocos2d</Filter>
-    </None>
-    <None Include="..\script\cocos2d\Opengl.lua">
-      <Filter>script\cocos2d</Filter>
-    </None>
-    <None Include="..\script\cocos2d\OpenglConstants.lua">
-      <Filter>script\cocos2d</Filter>
-    </None>
-    <None Include="..\script\network\DeprecatedNetworkClass.lua">
-      <Filter>script\network</Filter>
-    </None>
-    <None Include="..\script\network\DeprecatedNetworkEnum.lua">
-      <Filter>script\network</Filter>
-    </None>
-    <None Include="..\script\network\DeprecatedNetworkFunc.lua">
-      <Filter>script\network</Filter>
-    </None>
-    <None Include="..\script\network\NetworkConstants.lua">
-      <Filter>script\network</Filter>
-    </None>
-    <None Include="..\script\ui\DeprecatedUIEnum.lua">
-      <Filter>script\ui</Filter>
-    </None>
-    <None Include="..\script\ui\DeprecatedUIFunc.lua">
-      <Filter>script\ui</Filter>
-    </None>
-    <None Include="..\script\ui\experimentalUIConstants.lua">
-      <Filter>script\ui</Filter>
-    </None>
-    <None Include="..\script\ui\GuiConstants.lua">
-      <Filter>script\ui</Filter>
     </None>
   </ItemGroup>
 </Project>
