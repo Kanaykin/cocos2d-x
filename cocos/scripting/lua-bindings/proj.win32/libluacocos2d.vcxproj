@@ -135,157 +135,157 @@
   <ItemGroup>
     <CustomBuild Include="..\script\cocos2d\bitExtend.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\cocos2d\Cocos2d.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\cocos2d\Cocos2dConstants.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\cocos2d\DeprecatedCocos2dClass.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\cocos2d\DeprecatedCocos2dEnum.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\cocos2d\DeprecatedCocos2dFunc.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\cocos2d\DeprecatedOpenglEnum.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\cocos2d\DrawPrimitives.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\cocos2d\extern.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\cocos2d\json.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\cocos2d\luaj.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\cocos2d\luaoc.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\cocos2d\Opengl.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\cocos2d\OpenglConstants.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\network\DeprecatedNetworkClass.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\network\DeprecatedNetworkEnum.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\network\DeprecatedNetworkFunc.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\network\NetworkConstants.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\ui\DeprecatedUIEnum.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\ui\DeprecatedUIFunc.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\ui\experimentalUIConstants.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\ui\GuiConstants.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -296,94 +296,94 @@
   <ItemGroup>
     <CustomBuild Include="..\script\cocosbuilder\CCBReaderLoad.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\cocosbuilder\DeprecatedCocosBuilderClass.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\cocosdenshion\AudioEngine.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\cocosdenshion\DeprecatedCocosDenshionClass.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\cocosdenshion\DeprecatedCocosDenshionFunc.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\cocostudio\CocoStudio.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\cocostudio\DeprecatedCocoStudioClass.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\cocostudio\DeprecatedCocoStudioFunc.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\cocostudio\StudioConstants.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\extension\DeprecatedExtensionClass.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\extension\DeprecatedExtensionEnum.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\extension\DeprecatedExtensionFunc.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\script\extension\ExtensionConstants.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\..\..\bin\$(Configuration).win32\resorces\%(Identity)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) $(SolutionDir)..\..\..\bin\$(Configuration).win32\resources</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Identity)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Identity)</Outputs>
     </CustomBuild>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -469,8 +469,12 @@
       </Command>
     </PreLinkEvent>
     <PreBuildEvent>
-      <Command>if not exist "$(SolutionDir)../../../bin/$(Configuration).win32" mkdir "$(SolutionDir)../../../bin/$(Configuration).win32)"
-xcopy /Y /Q "$(ProjectDir)..\..\..\..\external\lua\luajit\prebuilt\win32\*.*" "$(SolutionDir)../../../bin/$(Configuration).win32"</Command>
+      <Command>if not exist "$(SolutionDir)../../../bin" mkdir "$(SolutionDir)../../../bin"
+if not exist "$(SolutionDir)../../../bin/$(Configuration).win32" mkdir "$(SolutionDir)../../../bin/$(Configuration).win32"
+
+if not exist "$(SolutionDir)../../../bin/$(Configuration).win32/resources" mkdir "$(SolutionDir)../../../bin/$(Configuration).win32/resources"
+xcopy /Y /Q "$(ProjectDir)..\..\..\..\external\lua\luajit\prebuilt\win32\*.*" "$(SolutionDir)../../../bin/$(Configuration).win32"
+</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -502,8 +506,12 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\..\external\lua\luajit\prebuilt\win32\*.*" "$
       </Command>
     </PreLinkEvent>
     <PreBuildEvent>
-      <Command>if not exist "$(SolutionDir)../../../bin/$(Configuration).win32" mkdir "$(SolutionDir)../../../bin/$(Configuration).win32)"
-xcopy /Y /Q "$(ProjectDir)..\..\..\..\external\lua\luajit\prebuilt\win32\*.*" "$(SolutionDir)../../../bin/$(Configuration).win32"</Command>
+      <Command>if not exist "$(SolutionDir)../../../bin" mkdir "$(SolutionDir)../../../bin"
+if not exist "$(SolutionDir)../../../bin/$(Configuration).win32" mkdir "$(SolutionDir)../../../bin/$(Configuration).win32"
+
+if not exist "$(SolutionDir)../../../bin/$(Configuration).win32/resources" mkdir "$(SolutionDir)../../../bin/$(Configuration).win32/resources"
+xcopy /Y /Q "$(ProjectDir)..\..\..\..\external\lua\luajit\prebuilt\win32\*.*" "$(SolutionDir)../../../bin/$(Configuration).win32"
+</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

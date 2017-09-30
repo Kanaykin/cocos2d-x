@@ -496,46 +496,44 @@
     <CustomBuild Include="..\script\network\NetworkConstants.lua">
       <Filter>script\cocos2d</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\script\cocosdenshion\DeprecatedCocosDenshionClass.lua">
-      <Filter>script\cocosdenshion</Filter>
+    <CustomBuild Include="..\script\cocostudio\StudioConstants.lua">
+      <Filter>script\cocos2d</Filter>
     </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\script\cocosbuilder\CCBReaderLoad.lua">
-      <Filter>script\cocosbuilder</Filter>
-    </None>
-    <None Include="..\script\cocosbuilder\DeprecatedCocosBuilderClass.lua">
-      <Filter>script\cocosbuilder</Filter>
-    </None>
-    <None Include="..\script\cocosdenshion\AudioEngine.lua">
-      <Filter>script\cocosdenshion</Filter>
-    </None>
-    <None Include="..\script\cocosdenshion\DeprecatedCocosDenshionFunc.lua">
-      <Filter>script\cocosdenshion</Filter>
-    </None>
-    <None Include="..\script\cocostudio\CocoStudio.lua">
-      <Filter>script\cocostudio</Filter>
-    </None>
-    <None Include="..\script\cocostudio\DeprecatedCocoStudioClass.lua">
-      <Filter>script\cocostudio</Filter>
-    </None>
-    <None Include="..\script\cocostudio\DeprecatedCocoStudioFunc.lua">
-      <Filter>script\cocostudio</Filter>
-    </None>
-    <None Include="..\script\cocostudio\StudioConstants.lua">
-      <Filter>script\cocostudio</Filter>
-    </None>
-    <None Include="..\script\extension\DeprecatedExtensionClass.lua">
-      <Filter>script\extension</Filter>
-    </None>
-    <None Include="..\script\extension\DeprecatedExtensionEnum.lua">
-      <Filter>script\extension</Filter>
-    </None>
-    <None Include="..\script\extension\DeprecatedExtensionFunc.lua">
-      <Filter>script\extension</Filter>
-    </None>
-    <None Include="..\script\extension\ExtensionConstants.lua">
-      <Filter>script\extension</Filter>
-    </None>
+    <CustomBuild Include="..\script\cocosdenshion\AudioEngine.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\cocosbuilder\CCBReaderLoad.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\cocostudio\CocoStudio.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\cocosbuilder\DeprecatedCocosBuilderClass.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\cocosdenshion\DeprecatedCocosDenshionFunc.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\cocostudio\DeprecatedCocoStudioClass.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\cocostudio\DeprecatedCocoStudioFunc.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\extension\DeprecatedExtensionClass.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\extension\DeprecatedExtensionEnum.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\extension\DeprecatedExtensionFunc.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\extension\ExtensionConstants.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\script\cocosdenshion\DeprecatedCocosDenshionClass.lua">
+      <Filter>script\cocos2d</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>
