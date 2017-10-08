@@ -661,10 +661,12 @@ void AssetsManager::destroyStoragePath()
     
     // Remove downloaded files
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
-    string command = "rm -r ";
-    // Path may include space.
-    command += "\"" + _storagePath + "\"";
-    system(command.c_str());    
+//    string command = "rm -r ";
+//    // Path may include space.
+//    command += "\"" + _storagePath + "\"";
+//    system(command.c_str());
+    
+    FileUtils::getInstance()->removeDirectory(_storagePath);
 #else
     string command = "rd /s /q ";
     // Path may include space.
