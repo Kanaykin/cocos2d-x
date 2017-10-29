@@ -41,7 +41,9 @@ THE SOFTWARE.
 #include <sys/types.h>
 #include <errno.h>
 #include <dirent.h>
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID)
 #include <ftw.h>
+#endif
 #endif
 
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_IOS) && (CC_TARGET_PLATFORM != CC_PLATFORM_MAC)
@@ -1123,10 +1125,20 @@ bool FileUtils::removeDirectory(const std::string& path)
     
     // Remove downloaded files
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32) && (CC_TARGET_PLATFORM != CC_PLATFORM_WP8) && (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	std::string command = "rm -r ";
+	// Path may include space.
+	command += "\"" + path + "\"";
+	if (system(command.c_str()) >= 0)
+		return true;
+	else
+		return false;
+#else
     if (nftw(path.c_str(), unlink_cb, 64, FTW_DEPTH | FTW_PHYS) == -1)
         return false;
     else
         return true;
+#endif
 #endif
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
 	std::string Files = path + "*.*";
@@ -1178,10 +1190,20 @@ bool FileUtils::removeFile(const std::string &path)
 {
     // Remove downloaded file
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32) && (CC_TARGET_PLATFORM != CC_PLATFORM_WP8) && (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	std::string command = "rm -r ";
+	// Path may include space.
+	command += "\"" + path + "\"";
+	if (system(command.c_str()) >= 0)
+		return true;
+	else
+		return false;
+#else
     if (nftw(path.c_str(), unlink_cb, 64, FTW_DEPTH | FTW_PHYS) == -1)
         return false;
     else
         return true;
+#endif
 #endif
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
 	if (DeleteFileA(path.c_str()))
