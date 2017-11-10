@@ -106,7 +106,8 @@ public:
     void setStartupScriptFilename(const std::string& startupScriptFile);
     
     const std::string& getStartupScriptFilename(void);
-    
+	
+	void applicationScreenSizeChanged(int newWidth, int newHeight){}
 protected:
     static Application * sm_pSharedApplication;
     
