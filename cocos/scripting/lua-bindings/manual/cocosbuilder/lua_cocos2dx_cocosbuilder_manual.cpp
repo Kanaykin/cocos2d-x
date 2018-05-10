@@ -1,5 +1,5 @@
 /****************************************************************************
- Copyright (c) 2013-2014 Chukong Technologies Inc.
+ Copyright (c) 2013-2017 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -21,14 +21,14 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#include "lua_cocos2dx_cocosbuilder_manual.h"
-#include "lua_cocos2dx_cocosbuilder_auto.hpp"
-#include "cocos2d.h"
-#include "tolua_fix.h"
-#include "LuaBasicConversions.h"
-#include "CCLuaEngine.h"
-#include "CCLuaValue.h"
-#include "CCBProxy.h"
+#include "scripting/lua-bindings/manual/cocosbuilder/lua_cocos2dx_cocosbuilder_manual.h"
+#include "scripting/lua-bindings/auto/lua_cocos2dx_cocosbuilder_auto.hpp"
+
+#include "scripting/lua-bindings/manual/tolua_fix.h"
+#include "scripting/lua-bindings/manual/LuaBasicConversions.h"
+#include "scripting/lua-bindings/manual/CCLuaEngine.h"
+#include "scripting/lua-bindings/manual/CCLuaValue.h"
+#include "scripting/lua-bindings/manual/cocosbuilder/CCBProxy.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -56,7 +56,7 @@ static int tolua_cocos2d_CCBProxy_create(lua_State* tolua_S)
         return 1;
     }
     
-    CCLOG("%s function of CCBProxy has wrong number of arguments: %d, was expecting %d\n", "cc.CCBProxy:create", argc, 0);
+    luaL_error(tolua_S, "%s function of CCBProxy has wrong number of arguments: %d, was expecting %d\n", "cc.CCBProxy:create", argc, 0);
     return 0;
     
 #if COCOS2D_DEBUG >= 1
@@ -100,7 +100,7 @@ static int tolua_cocos2d_CCBProxy_createCCBReader(lua_State* tolua_S)
         return 1;
     }
     
-    CCLOG("%s function of CCBProxy  has wrong number of arguments: %d, was expecting %d\n", "cc.CCBProxy:createCCBReader", argc, 0);
+    luaL_error(tolua_S, "%s function of CCBProxy  has wrong number of arguments: %d, was expecting %d\n", "cc.CCBProxy:createCCBReader", argc, 0);
     return 0;
     
 #if COCOS2D_DEBUG >= 1
@@ -160,7 +160,7 @@ static int tolua_cocos2d_CCBProxy_readCCBFromFile(lua_State* tolua_S)
         return 1;
     }
     
-    CCLOG("%s function of CCBProxy  has wrong number of arguments: %d, was expecting %d\n", "cc.CCBReader:readCCBFromFile", argc, 2);
+    luaL_error(tolua_S, "%s function of CCBProxy  has wrong number of arguments: %d, was expecting %d\n", "cc.CCBReader:readCCBFromFile", argc, 2);
     return 0;
     
 #if COCOS2D_DEBUG >= 1
@@ -207,7 +207,7 @@ static int tolua_cocos2d_CCBProxy_getNodeTypeName(lua_State* tolua_S)
         return 1;
     }
     
-    CCLOG(" %s has wrong number of arguments: %d, was expecting %d\n", "cc.CCBProxy:getNodeTypeName", argc, 1);
+    luaL_error(tolua_S, " %s has wrong number of arguments: %d, was expecting %d\n", "cc.CCBProxy:getNodeTypeName", argc, 1);
     return 0;
     
 #if COCOS2D_DEBUG >= 1
@@ -257,7 +257,7 @@ static int tolua_cocos2d_CCBProxy_setCallback(lua_State* tolua_S)
         return 0;
     }
     
-    CCLOG(" %s has wrong number of arguments: %d, was expecting %d\n", "cc.CCBProxy:setCallback", argc, 2);
+    luaL_error(tolua_S, " %s has wrong number of arguments: %d, was expecting %d\n", "cc.CCBProxy:setCallback", argc, 2);
     return 0;
     
 #if COCOS2D_DEBUG >= 1
@@ -357,7 +357,7 @@ static int tolua_cocos2d_CCBReader_load(lua_State* tolua_S)
         
     }
     
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n", "cc.CCBReader:load",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n", "cc.CCBReader:load",argc, 1);
     return 0;
     
 #if COCOS2D_DEBUG >= 1
@@ -424,7 +424,7 @@ static int tolua_cocos2d_CCBAnimationManager_setCallFuncForLuaCallbackNamed(lua_
         return 0;
     }
     
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n", "cc.CCBAnimationManager:setCallFuncForLuaCallbackNamed",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n", "cc.CCBAnimationManager:setCallFuncForLuaCallbackNamed",argc, 1);
     return 0;
     
 #if COCOS2D_DEBUG >= 1
@@ -465,7 +465,5 @@ int register_cocosbuilder_module(lua_State* tolua_S)
         register_all_cocos2dx_cocosbuilder_manual(tolua_S);
     }
     lua_pop(tolua_S, 1);
-
-    LuaEngine::getInstance()->executeScriptFile("DeprecatedCocosBuilderClass");
     return 1;
 }

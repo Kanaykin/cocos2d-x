@@ -2,7 +2,7 @@
 Copyright (c) 2008-2010 Ricardo Quesada
 Copyright (c) 2010-2013 cocos2d-x.org
 Copyright (c) 2011      Zynga Inc.
-Copyright (c) 2013-2014 Chukong Technologies Inc.
+Copyright (c) 2013-2017 Chukong Technologies Inc.
 
 http://www.cocos2d-x.org
 
@@ -49,6 +49,14 @@ THE SOFTWARE.
 #include "platform/CCGL.h"
 
 NS_CC_BEGIN
+
+#if defined(__GNUC__) && ((__GNUC__ >= 4) || ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 1)))
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#elif _MSC_VER >= 1400 //vs 2005 or higher
+#pragma warning (push)
+#pragma warning (disable: 4996)
+#endif
+
 #ifndef M_PI
     #define M_PI       3.14159265358979323846
 #endif
@@ -62,32 +70,6 @@ static Color4F s_color(1.0f,1.0f,1.0f,1.0f);
 static int s_pointSizeLocation = -1;
 static GLfloat s_pointSize = 1.0f;
 
-#ifdef EMSCRIPTEN
-static GLuint s_bufferObject = 0;
-static GLuint s_bufferSize = 0;
-
-static void setGLBufferData(void *buf, GLuint bufSize)
-{
-    if(s_bufferSize < bufSize)
-    {
-        if(s_bufferObject)
-        {
-            glDeleteBuffers(1, &s_bufferObject);
-        }
-        glGenBuffers(1, &s_bufferObject);
-        s_bufferSize = bufSize;
-
-        glBindBuffer(GL_ARRAY_BUFFER, s_bufferObject);
-        glBufferData(GL_ARRAY_BUFFER, bufSize, buf, GL_DYNAMIC_DRAW);
-    }
-    else
-    {
-        glBindBuffer(GL_ARRAY_BUFFER, s_bufferObject);
-        glBufferSubData(GL_ARRAY_BUFFER, 0, bufSize, buf);
-    }
-}
-
-#endif // EMSCRIPTEN
 
 static void lazy_init()
 {
@@ -108,7 +90,7 @@ static void lazy_init()
     }
 }
 
-// When switching from backround to foreground on android, we want the params to be initialized again
+// When switching from background to foreground on android, we want the parameters to be initialized again
 void init()
 {
     lazy_init();
@@ -116,8 +98,8 @@ void init()
 
 void free()
 {
-	CC_SAFE_RELEASE_NULL(s_shader);
-	s_initialized = false;
+    CC_SAFE_RELEASE_NULL(s_shader);
+    s_initialized = false;
 }
 
 void drawPoint(const Vec2& point)
@@ -135,12 +117,7 @@ void drawPoint(const Vec2& point)
     s_shader->setUniformLocationWith4fv(s_colorLocation, (GLfloat*) &s_color.r, 1);
     s_shader->setUniformLocationWith1f(s_pointSizeLocation, s_pointSize);
 
-#ifdef EMSCRIPTEN
-    setGLBufferData(&p, 8);
-    glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, 0);
-#else
     glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, &p);
-#endif // EMSCRIPTEN
 
     glDrawArrays(GL_POINTS, 0, 1);
 
@@ -157,39 +134,8 @@ void drawPoints( const Vec2 *points, unsigned int numberOfPoints )
     s_shader->setUniformLocationWith4fv(s_colorLocation, (GLfloat*) &s_color.r, 1);
     s_shader->setUniformLocationWith1f(s_pointSizeLocation, s_pointSize);
 
-    // FIXME: Mac OpenGL error. arrays can't go out of scope before draw is executed
-    Vec2* newPoints = new (std::nothrow) Vec2[numberOfPoints];
-
-    // iPhone and 32-bit machines optimization
-    if( sizeof(Vec2) == sizeof(Vec2) )
-    {
-#ifdef EMSCRIPTEN
-        setGLBufferData((void*) points, numberOfPoints * sizeof(Vec2));
-        glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, 0);
-#else
-        glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, points);
-#endif // EMSCRIPTEN
-    }
-    else
-    {
-        // Mac on 64-bit
-        for( unsigned int i=0; i<numberOfPoints;i++) {
-            newPoints[i].x = points[i].x;
-            newPoints[i].y = points[i].y;
-        }
-#ifdef EMSCRIPTEN
-        // Suspect Emscripten won't be emitting 64-bit code for a while yet,
-        // but want to make sure this continues to work even if they do.
-        setGLBufferData(newPoints, numberOfPoints * sizeof(Vec2));
-        glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, 0);
-#else
-        glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, newPoints);
-#endif // EMSCRIPTEN
-    }
-
+    glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, points);
     glDrawArrays(GL_POINTS, 0, (GLsizei) numberOfPoints);
-
-    CC_SAFE_DELETE_ARRAY(newPoints);
 
     CC_INCREMENT_GL_DRAWN_BATCHES_AND_VERTICES(1, numberOfPoints);
 }
@@ -209,12 +155,7 @@ void drawLine(const Vec2& origin, const Vec2& destination)
     s_shader->setUniformLocationWith4fv(s_colorLocation, (GLfloat*) &s_color.r, 1);
 
     GL::enableVertexAttribs( GL::VERTEX_ATTRIB_FLAG_POSITION );
-#ifdef EMSCRIPTEN
-    setGLBufferData(vertices, 16);
-    glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, 0);
-#else
     glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, vertices);
-#endif // EMSCRIPTEN
     glDrawArrays(GL_LINES, 0, 2);
 
     CC_INCREMENT_GL_DRAWN_BATCHES_AND_VERTICES(1,2);
@@ -250,44 +191,12 @@ void drawPoly(const Vec2 *poli, unsigned int numberOfPoints, bool closePolygon)
 
     GL::enableVertexAttribs( GL::VERTEX_ATTRIB_FLAG_POSITION );
 
-    // iPhone and 32-bit machines optimization
-    if( sizeof(Vec2) == sizeof(Vec2) )
-    {
-#ifdef EMSCRIPTEN
-        setGLBufferData((void*) poli, numberOfPoints * sizeof(Vec2));
-        glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, 0);
-#else
-        glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, poli);
-#endif // EMSCRIPTEN
+    glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, poli);
 
-        if( closePolygon )
-            glDrawArrays(GL_LINE_LOOP, 0, (GLsizei) numberOfPoints);
-        else
-            glDrawArrays(GL_LINE_STRIP, 0, (GLsizei) numberOfPoints);
-    }
+    if( closePolygon )
+        glDrawArrays(GL_LINE_LOOP, 0, (GLsizei) numberOfPoints);
     else
-    {
-        // Mac on 64-bit
-        // FIXME: Mac OpenGL error. arrays can't go out of scope before draw is executed
-        Vec2* newPoli = new (std::nothrow) Vec2[numberOfPoints];
-        for( unsigned int i=0; i<numberOfPoints;i++) {
-            newPoli[i].x = poli[i].x;
-            newPoli[i].y = poli[i].y;
-        }
-#ifdef EMSCRIPTEN
-        setGLBufferData(newPoli, numberOfPoints * sizeof(Vec2));
-        glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, 0);
-#else
-        glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, newPoli);
-#endif // EMSCRIPTEN
-
-        if( closePolygon )
-            glDrawArrays(GL_LINE_LOOP, 0, (GLsizei) numberOfPoints);
-        else
-            glDrawArrays(GL_LINE_STRIP, 0, (GLsizei) numberOfPoints);
-
-        CC_SAFE_DELETE_ARRAY(newPoli);
-    }
+        glDrawArrays(GL_LINE_STRIP, 0, (GLsizei) numberOfPoints);
 
     CC_INCREMENT_GL_DRAWN_BATCHES_AND_VERTICES(1, numberOfPoints);
 }
@@ -302,37 +211,9 @@ void drawSolidPoly(const Vec2 *poli, unsigned int numberOfPoints, Color4F color)
 
     GL::enableVertexAttribs( GL::VERTEX_ATTRIB_FLAG_POSITION );
 
-    // FIXME: Mac OpenGL error. arrays can't go out of scope before draw is executed
-    Vec2* newPoli = new (std::nothrow) Vec2[numberOfPoints];
-
-    // iPhone and 32-bit machines optimization
-    if (sizeof(Vec2) == sizeof(Vec2))
-    {
-#ifdef EMSCRIPTEN
-        setGLBufferData((void*) poli, numberOfPoints * sizeof(Vec2));
-        glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, 0);
-#else
-        glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, poli);
-#endif // EMSCRIPTEN
-    }
-    else
-    {
-        // Mac on 64-bit
-        for(unsigned int i = 0; i < numberOfPoints; i++)
-        {
-            newPoli[i] = Vec2( poli[i].x, poli[i].y );
-        }
-#ifdef EMSCRIPTEN
-        setGLBufferData(newPoli, numberOfPoints * sizeof(Vec2));
-        glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, 0);
-#else
-        glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, newPoli);
-#endif // EMSCRIPTEN
-    }    
-
+    glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, poli);
     glDrawArrays(GL_TRIANGLE_FAN, 0, (GLsizei) numberOfPoints);
 
-    CC_SAFE_DELETE_ARRAY(newPoli);
     CC_INCREMENT_GL_DRAWN_BATCHES_AND_VERTICES(1, numberOfPoints);
 }
 
@@ -367,12 +248,7 @@ void drawCircle( const Vec2& center, float radius, float angle, unsigned int seg
 
     GL::enableVertexAttribs( GL::VERTEX_ATTRIB_FLAG_POSITION );
 
-#ifdef EMSCRIPTEN
-    setGLBufferData(vertices, sizeof(GLfloat)*2*(segments+2));
-    glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, 0);
-#else
     glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, vertices);
-#endif // EMSCRIPTEN
     glDrawArrays(GL_LINE_STRIP, 0, (GLsizei) segments+additionalSegment);
 
     ::free( vertices );
@@ -412,13 +288,8 @@ void drawSolidCircle( const Vec2& center, float radius, float angle, unsigned in
     
     GL::enableVertexAttribs( GL::VERTEX_ATTRIB_FLAG_POSITION );
     
-#ifdef EMSCRIPTEN
-    setGLBufferData(vertices, sizeof(GLfloat)*2*(segments+2));
-    glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, 0);
-#else
     glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, vertices);
-#endif // EMSCRIPTEN
-    
+
     glDrawArrays(GL_TRIANGLE_FAN, 0, (GLsizei) segments+1);
     
     ::free( vertices );
@@ -453,12 +324,7 @@ void drawQuadBezier(const Vec2& origin, const Vec2& control, const Vec2& destina
 
     GL::enableVertexAttribs( GL::VERTEX_ATTRIB_FLAG_POSITION );
 
-#ifdef EMSCRIPTEN
-    setGLBufferData(vertices, (segments + 1) * sizeof(Vec2));
-    glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, 0);
-#else
     glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, vertices);
-#endif // EMSCRIPTEN
     glDrawArrays(GL_LINE_STRIP, 0, (GLsizei) segments + 1);
     CC_SAFE_DELETE_ARRAY(vertices);
 
@@ -510,12 +376,7 @@ void drawCardinalSpline( PointArray *config, float tension,  unsigned int segmen
 
     GL::enableVertexAttribs( GL::VERTEX_ATTRIB_FLAG_POSITION );
 
-#ifdef EMSCRIPTEN
-    setGLBufferData(vertices, (segments + 1) * sizeof(Vec2));
-    glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, 0);
-#else
     glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, vertices);
-#endif // EMSCRIPTEN
     glDrawArrays(GL_LINE_STRIP, 0, (GLsizei) segments + 1);
 
     CC_SAFE_DELETE_ARRAY(vertices);
@@ -544,12 +405,7 @@ void drawCubicBezier(const Vec2& origin, const Vec2& control1, const Vec2& contr
 
     GL::enableVertexAttribs( GL::VERTEX_ATTRIB_FLAG_POSITION );
 
-#ifdef EMSCRIPTEN
-    setGLBufferData(vertices, (segments + 1) * sizeof(Vec2));
-    glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, 0);
-#else
     glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, vertices);
-#endif // EMSCRIPTEN
     glDrawArrays(GL_LINE_STRIP, 0, (GLsizei) segments + 1);
     CC_SAFE_DELETE_ARRAY(vertices);
 
@@ -581,5 +437,11 @@ void setDrawColor4B( GLubyte r, GLubyte g, GLubyte b, GLubyte a )
 }
 
 } // DrawPrimitives namespace
+
+#if defined(__GNUC__) && ((__GNUC__ >= 4) || ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 1)))
+#pragma GCC diagnostic warning "-Wdeprecated-declarations"
+#elif _MSC_VER >= 1400 //vs 2005 or higher
+#pragma warning (pop)
+#endif
 
 NS_CC_END

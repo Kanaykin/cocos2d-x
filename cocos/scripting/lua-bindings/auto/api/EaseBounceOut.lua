@@ -1,11 +1,11 @@
 
 --------------------------------
 -- @module EaseBounceOut
--- @extend EaseBounce
+-- @extend ActionEase
 -- @parent_module cc
 
 --------------------------------
---  creates the action 
+-- 
 -- @function [parent=#EaseBounceOut] create 
 -- @param self
 -- @param #cc.ActionInterval action
@@ -22,11 +22,18 @@
 -- @function [parent=#EaseBounceOut] update 
 -- @param self
 -- @param #float time
+-- @return EaseBounceOut#EaseBounceOut self (return value: cc.EaseBounceOut)
         
 --------------------------------
 -- 
 -- @function [parent=#EaseBounceOut] reverse 
 -- @param self
--- @return EaseBounce#EaseBounce ret (return value: cc.EaseBounce)
+-- @return ActionEase#ActionEase ret (return value: cc.ActionEase)
+        
+--------------------------------
+-- 
+-- @function [parent=#EaseBounceOut] EaseBounceOut 
+-- @param self
+-- @return EaseBounceOut#EaseBounceOut self (return value: cc.EaseBounceOut)
         
 return nil

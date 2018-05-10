@@ -1,5 +1,5 @@
 /****************************************************************************
- Copyright (c) 2013-2014 Chukong Technologies Inc.
+ Copyright (c) 2013-2017 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -21,18 +21,18 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#include "lua_cocos2dx_network_manual.h"
+#include "scripting/lua-bindings/manual/network/lua_cocos2dx_network_manual.h"
 extern "C" {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-#include "lua_extensions.h"
+#include "scripting/lua-bindings/manual/network/lua_extensions.h"
 #endif
 }
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-#include "Lua_web_socket.h"
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+#include "scripting/lua-bindings/manual/network/Lua_web_socket.h"
 #endif
 
-#include "lua_xml_http_request.h"
-#include "CCLuaEngine.h"
+#include "scripting/lua-bindings/manual/network/lua_xml_http_request.h"
+#include "scripting/lua-bindings/manual/CCLuaEngine.h"
 
 
 int register_network_module(lua_State* L)
@@ -44,7 +44,7 @@ int register_network_module(lua_State* L)
         luaopen_lua_extensions(L);
 #endif
         
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
         tolua_web_socket_open(L);
         register_web_socket_manual(L);
 #endif
@@ -52,10 +52,6 @@ int register_network_module(lua_State* L)
         register_xml_http_request(L);
     }
     lua_pop(L, 1);
-    
-    cocos2d::LuaEngine::getInstance()->executeScriptFile("DeprecatedNetworkClass");
-    cocos2d::LuaEngine::getInstance()->executeScriptFile("DeprecatedNetworkEnum");
-    cocos2d::LuaEngine::getInstance()->executeScriptFile("DeprecatedNetworkFunc");
     
     return 1;
 }

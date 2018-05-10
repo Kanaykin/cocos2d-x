@@ -1,5 +1,5 @@
 /****************************************************************************
- Copyright (c) 2014 Chukong Technologies Inc.
+ Copyright (c) 2014-2017 Chukong Technologies Inc.
 
  http://www.cocos2d-x.org
 
@@ -21,13 +21,17 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-#include "lua_cocos2dx_audioengine_manual.h"
-#include "lua_cocos2dx_audioengine_auto.hpp"
-#include "tolua_fix.h"
-#include "LuaBasicConversions.h"
-#include "CCLuaEngine.h"
-#include "AudioEngine.h"
+#include "platform/CCPlatformConfig.h"
+
+#include "scripting/lua-bindings/manual/audioengine/lua_cocos2dx_audioengine_manual.h"
+
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN
+
+#include "scripting/lua-bindings/auto/lua_cocos2dx_audioengine_auto.hpp"
+#include "scripting/lua-bindings/manual/tolua_fix.h"
+#include "scripting/lua-bindings/manual/LuaBasicConversions.h"
+#include "scripting/lua-bindings/manual/CCLuaEngine.h"
+#include "audio/include/AudioEngine.h"
 
 static int lua_get_AudioProfile_name(lua_State* L)
 {
@@ -275,7 +279,7 @@ int lua_cocos2dx_audioengine_AudioEngine_setFinishCallback(lua_State* tolua_S)
     
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "ccexp.AudioEngine:setFinishCallback",argc, 2);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "ccexp.AudioEngine:setFinishCallback",argc, 2);
     return 0;
 #if COCOS2D_DEBUG >= 1
 tolua_lerror:
@@ -313,6 +317,13 @@ int register_audioengine_module(lua_State* L)
     }
     lua_pop(L, 1);
     
+    return 1;
+}
+
+#else
+
+int register_audioengine_module(lua_State* L)
+{
     return 1;
 }
 

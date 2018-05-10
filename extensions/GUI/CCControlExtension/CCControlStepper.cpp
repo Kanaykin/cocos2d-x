@@ -59,7 +59,7 @@ ControlStepper::ControlStepper()
 
 ControlStepper::~ControlStepper()
 {
-    unscheduleAllSelectors();
+    unscheduleAllCallbacks();
     
     CC_SAFE_RELEASE(_minusSprite);
     CC_SAFE_RELEASE(_plusSprite);
@@ -82,7 +82,7 @@ bool ControlStepper::initWithMinusSpriteAndPlusSprite(Sprite *minusSprite, Sprit
         _value                              = 0;
         _stepValue                          = 1;
         _wraps                              = false;
-        this->ignoreAnchorPointForPosition( false );
+        this->setIgnoreAnchorPointForPosition( false );
     
         // Add the minus components
         this->setMinusSprite(minusSprite);
@@ -221,16 +221,16 @@ void ControlStepper::startAutorepeat()
 {
     _autorepeatCount    = -1;
     
-    this->schedule(schedule_selector(ControlStepper::update), kAutorepeatDeltaTime, kRepeatForever, kAutorepeatDeltaTime * 3);
+    this->schedule(CC_SCHEDULE_SELECTOR(ControlStepper::update), kAutorepeatDeltaTime, CC_REPEAT_FOREVER, kAutorepeatDeltaTime * 3);
 }
 
 /** Stop the autorepeat. */
 void ControlStepper::stopAutorepeat()
 {
-    this->unschedule(schedule_selector(ControlStepper::update));
+    this->unschedule(CC_SCHEDULE_SELECTOR(ControlStepper::update));
 }
 
-void ControlStepper::update(float dt)
+void ControlStepper::update(float /*dt*/)
 {
     _autorepeatCount++;
     
@@ -274,7 +274,7 @@ void ControlStepper::updateLayoutUsingTouchLocation(Vec2 location)
 }
 
 
-bool ControlStepper::onTouchBegan(Touch *pTouch, Event *pEvent)
+bool ControlStepper::onTouchBegan(Touch *pTouch, Event* /*pEvent*/)
 {
     if (!isTouchInside(pTouch) || !isEnabled() || !isVisible())
     {
@@ -294,7 +294,7 @@ bool ControlStepper::onTouchBegan(Touch *pTouch, Event *pEvent)
     return true;
 }
 
-void ControlStepper::onTouchMoved(Touch *pTouch, Event *pEvent)
+void ControlStepper::onTouchMoved(Touch *pTouch, Event* /*pEvent*/)
 {
     if (this->isTouchInside(pTouch))
     {
@@ -327,7 +327,7 @@ void ControlStepper::onTouchMoved(Touch *pTouch, Event *pEvent)
     }
 }
 
-void ControlStepper::onTouchEnded(Touch *pTouch, Event *pEvent)
+void ControlStepper::onTouchEnded(Touch *pTouch, Event* /*pEvent*/)
 {
     _minusSprite->setColor(Color3B::WHITE);
     _plusSprite->setColor(Color3B::WHITE);

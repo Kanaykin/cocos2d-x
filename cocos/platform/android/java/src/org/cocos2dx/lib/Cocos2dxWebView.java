@@ -1,21 +1,43 @@
 package org.cocos2dx.lib;
 
-import java.lang.reflect.Method;
-import java.net.URI;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
+import android.view.Gravity;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 
+import java.lang.reflect.Method;
+import java.net.URI;
+import java.util.concurrent.CountDownLatch;
+
+class ShouldStartLoadingWorker implements Runnable {
+    private CountDownLatch mLatch;
+    private boolean[] mResult;
+    private final int mViewTag;
+    private final String mUrlString;
+
+    ShouldStartLoadingWorker(CountDownLatch latch, boolean[] result, int viewTag, String urlString) {
+        this.mLatch = latch;
+        this.mResult = result;
+        this.mViewTag = viewTag;
+        this.mUrlString = urlString;
+    }
+
+    @Override
+    public void run() {
+        this.mResult[0] = Cocos2dxWebViewHelper._shouldStartLoading(mViewTag, mUrlString);
+        this.mLatch.countDown(); // notify that result is ready
+    }
+}
+
 public class Cocos2dxWebView extends WebView {
     private static final String TAG = Cocos2dxWebViewHelper.class.getSimpleName();
 
-    private int viewTag;
-    private String jsScheme;
+    private int mViewTag;
+    private String mJSScheme;
 
     public Cocos2dxWebView(Context context) {
         this(context, -1);
@@ -24,14 +46,15 @@ public class Cocos2dxWebView extends WebView {
     @SuppressLint("SetJavaScriptEnabled")
     public Cocos2dxWebView(Context context, int viewTag) {
         super(context);
-        this.viewTag = viewTag;
-        this.jsScheme = "";
+        this.mViewTag = viewTag;
+        this.mJSScheme = "";
 
         this.setFocusable(true);
         this.setFocusableInTouchMode(true);
 
         this.getSettings().setSupportZoom(false);
 
+        this.getSettings().setDomStorageEnabled(true);
         this.getSettings().setJavaScriptEnabled(true);
 
         // `searchBoxJavaBridge_` has big security risk. http://jvn.jp/en/jp/JVN53768697
@@ -47,7 +70,7 @@ public class Cocos2dxWebView extends WebView {
     }
 
     public void setJavascriptInterfaceScheme(String scheme) {
-        this.jsScheme = scheme != null ? scheme : "";
+        this.mJSScheme = scheme != null ? scheme : "";
     }
 
     public void setScalesPageToFit(boolean scalesPageToFit) {
@@ -56,39 +79,73 @@ public class Cocos2dxWebView extends WebView {
 
     class Cocos2dxWebViewClient extends WebViewClient {
         @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String urlString) {
-            URI uri = URI.create(urlString);
-            if (uri != null && uri.getScheme().equals(jsScheme)) {
-                Cocos2dxWebViewHelper._onJsCallback(viewTag, urlString);
-                return true;
+        public boolean shouldOverrideUrlLoading(WebView view, final String urlString) {
+            Cocos2dxActivity activity = (Cocos2dxActivity)getContext();
+
+            try {
+                URI uri = URI.create(urlString);
+                if (uri != null && uri.getScheme().equals(mJSScheme)) {
+                    activity.runOnGLThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Cocos2dxWebViewHelper._onJsCallback(mViewTag, urlString);
+                        }
+                    });
+                    return true;
+                }
+            } catch (Exception e) {
+                Log.d(TAG, "Failed to create URI from url");
             }
-            return Cocos2dxWebViewHelper._shouldStartLoading(viewTag, urlString);
+
+            boolean[] result = new boolean[] { true };
+            CountDownLatch latch = new CountDownLatch(1);
+
+            // run worker on cocos thread
+            activity.runOnGLThread(new ShouldStartLoadingWorker(latch, result, mViewTag, urlString));
+
+            // wait for result from cocos thread
+            try {
+                latch.await();
+            } catch (InterruptedException ex) {
+                Log.d(TAG, "'shouldOverrideUrlLoading' failed");
+            }
+
+            return result[0];
         }
 
         @Override
-        public void onPageFinished(WebView view, String url) {
+        public void onPageFinished(WebView view, final String url) {
             super.onPageFinished(view, url);
-            Cocos2dxWebViewHelper._didFinishLoading(viewTag, url);
+            Cocos2dxActivity activity = (Cocos2dxActivity)getContext();
+            activity.runOnGLThread(new Runnable() {
+                @Override
+                public void run() {
+                    Cocos2dxWebViewHelper._didFinishLoading(mViewTag, url);
+                }
+            });
         }
 
         @Override
-        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+        public void onReceivedError(WebView view, int errorCode, String description, final String failingUrl) {
             super.onReceivedError(view, errorCode, description, failingUrl);
-            Cocos2dxWebViewHelper._didFailLoading(viewTag, failingUrl);
+            Cocos2dxActivity activity = (Cocos2dxActivity)getContext();
+            activity.runOnGLThread(new Runnable() {
+                @Override
+                public void run() {
+                    Cocos2dxWebViewHelper._didFailLoading(mViewTag, failingUrl);
+                }
+            });
         }
     }
 
     public void setWebViewRect(int left, int top, int maxWidth, int maxHeight) {
-        fixSize(left, top, maxWidth, maxHeight);
-    }
-
-    private void fixSize(int left, int top, int width, int height) {
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
                 FrameLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.leftMargin = left;
         layoutParams.topMargin = top;
-        layoutParams.width = width;
-        layoutParams.height = height;
+        layoutParams.width = maxWidth;
+        layoutParams.height = maxHeight;
+        layoutParams.gravity = Gravity.TOP | Gravity.LEFT;
         this.setLayoutParams(layoutParams);
     }
 }

@@ -1,6 +1,6 @@
 /****************************************************************************
 Copyright (c) 2011      Laschweinski
-Copyright (c) 2013-2014 Chukong Technologies Inc.
+Copyright (c) 2013-2017 Chukong Technologies Inc.
 
 http://www.cocos2d-x.org
 
@@ -26,15 +26,19 @@ THE SOFTWARE.
 #include "platform/CCPlatformConfig.h"
 #if CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
 
-#include "CCFileUtils-linux.h"
-#include "CCApplication-linux.h"
+#include "platform/linux/CCFileUtils-linux.h"
+#include "platform/linux/CCApplication-linux.h"
 #include "platform/CCCommon.h"
 #include "base/ccMacros.h"
-#include "deprecated/CCString.h"
+#include "base/ccUTF8.h"
 #include <unistd.h>
 #include <sys/stat.h>
 #include <stdio.h>
 #include <errno.h>
+
+#ifndef CC_RESOURCE_FOLDER_LINUX
+#define CC_RESOURCE_FOLDER_LINUX ("/Resources/")
+#endif
 
 using namespace std;
 
@@ -42,13 +46,13 @@ NS_CC_BEGIN
 
 FileUtils* FileUtils::getInstance()
 {
-    if (s_sharedFileUtils == NULL)
+    if (s_sharedFileUtils == nullptr)
     {
         s_sharedFileUtils = new FileUtilsLinux();
         if(!s_sharedFileUtils->init())
         {
           delete s_sharedFileUtils;
-          s_sharedFileUtils = NULL;
+          s_sharedFileUtils = nullptr;
           CCLOG("ERROR: Could not init CCFileUtilsLinux");
         }
     }
@@ -71,7 +75,7 @@ bool FileUtilsLinux::init()
     fullpath[length] = '\0';
     std::string appPath = fullpath;
     _defaultResRootPath = appPath.substr(0, appPath.find_last_of("/"));
-    _defaultResRootPath += "/Resources/";
+    _defaultResRootPath += CC_RESOURCE_FOLDER_LINUX;
 
     // Set writable path to $XDG_CONFIG_HOME or ~/.config/<app name>/ if $XDG_CONFIG_HOME not exists.
     const char* xdg_config_path = getenv("XDG_CONFIG_HOME");
@@ -112,7 +116,7 @@ bool FileUtilsLinux::isFileExistInternal(const std::string& strFilePath) const
     { // Not absolute path, add the default root path at the beginning.
         strPath.insert(0, _defaultResRootPath);
     }
-    
+
     struct stat sts;
     return (stat(strPath.c_str(), &sts) != -1) ? true : false;
 }

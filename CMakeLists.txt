@@ -1,6 +1,7 @@
 #/****************************************************************************
 # Copyright (c) 2013 cocos2d-x.org
 # Copyright (c) 2014 martell malone
+# Copyright (c) 2015-2017 Chukong Technologies Inc.
 #
 # http://www.cocos2d-x.org
 #
@@ -23,137 +24,108 @@
 # THE SOFTWARE.
 # ****************************************************************************/
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.1)
+# It ensures that when Find*.cmake files included from cmake's Modules dir
+# include another *.cmake file with relative path, that file will be included
+# also from cmake's Modules dir, to not clash with per-project files.
+cmake_policy(SET CMP0017 NEW)
+
+# Use new behaviour with cmake >= 3.1:
+# Only interpret if() arguments as variables or keywords when unquoted.
+if(CMAKE_VERSION VERSION_GREATER 3.1)
+    cmake_policy(SET CMP0054 NEW)
+endif()
+
 project (Cocos2d-X)
 
 # The version number
-set(COCOS2D_X_VERSION 3.3.0-beta0)
-#set(CMAKE_C_COMPILER_INIT g++)
+set(COCOS2D_X_VERSION 3.13)
 
-include(build/BuildHelpers.CMakeLists.txt)
+# define some variables
+
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/Modules/")
+set(COCOS_EXTERNAL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external)
+# architecture
+if (CMAKE_SIZEOF_VOID_P EQUAL 8)
+  set(ARCH_DIR "64-bit")
+elseif (CMAKE_SIZEOF_VOID_P EQUAL 4)
+  set(ARCH_DIR "32-bit")
+else()
+  message(FATAL_ERROR "Unsupported architecture, CMake will exit")
+  return()
+endif()
+# CMAKE_BUILD_TYPE has precedence over DEBUG_MODE
+# Still supporting DEBUG_MODE for backwards compatibility
+if (NOT CMAKE_BUILD_TYPE)
+  if(DEBUG_MODE)
+    set(CMAKE_BUILD_TYPE DEBUG)
+  else(DEBUG_MODE)
+    set(CMAKE_BUILD_TYPE RELEASE)
+  endif(DEBUG_MODE)
+endif(NOT CMAKE_BUILD_TYPE)
+
+include(CocosBuildHelpers)
 
 message(${BUILDING_STRING})
 
-if(DEBUG_MODE)
-  set(CMAKE_BUILD_TYPE DEBUG)
-else(DEBUG_MODE)
-  set(CMAKE_BUILD_TYPE RELEASE)
-endif(DEBUG_MODE)
+# SelectModule() is a macro to select building modules
+include(SelectModule)
+SelectModule()
 
-set(CMAKE_C_FLAGS_DEBUG "-DCOCOS2D_DEBUG=1")
-set(CMAKE_CXX_FLAGS_DEBUG ${CMAKE_C_FLAGS_DEBUG})
+# set compiler options
+include(SetCompilerOptions)
+SetCompilerOptions()
 
-# Compiler options
-if(MSVC)
-  ADD_DEFINITIONS(-D_CRT_SECURE_NO_WARNINGS -D_SCL_SECURE_NO_WARNINGS
-                  -wd4251 -wd4244 -wd4334 -wd4005 -wd4820 -wd4710
-                  -wd4514 -wd4056 -wd4996 -wd4099)
-else()
-  set(CMAKE_C_FLAGS_DEBUG "-g -Wall -DCOCOS2D_DEBUG=1")
-  set(CMAKE_CXX_FLAGS_DEBUG ${CMAKE_C_FLAGS_DEBUG})
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-exceptions -std=c99")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-exceptions -std=c++11 -Wno-deprecated-declarations -Wno-reorder")
-  if(CLANG)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
-  endif()
-endif(MSVC)
-
-# Some macro definitions
-if(WINDOWS)
-  ADD_DEFINITIONS (-D_USRDLL -DCOCOS2DXWIN32_EXPORTS -D_WINDOWS -DWIN32)
-  set(PLATFORM_FOLDER win32)
-elseif(MACOSX)
-  ADD_DEFINITIONS (-DCC_TARGET_OS_MAC)
-  ADD_DEFINITIONS (-DUSE_FILE32API)
-  set(PLATFORM_FOLDER mac)
-elseif(LINUX)
-  ADD_DEFINITIONS(-DLINUX)
-  set(PLATFORM_FOLDER linux)
-else()
-  message( FATAL_ERROR "Unsupported platform, CMake will exit" )
-endif()
-
-if(MINGW)
-  add_definitions(-DGLEW_STATIC)
-  add_definitions(-D__SSIZE_T)
-  set(CMAKE_C_STANDARD_LIBRARIES "${CMAKE_C_STANDARD_LIBRARIES} -lws2_32")
-  set(CMAKE_CXX_STANDARD_LIBRARIES "${CMAKE_CXX_STANDARD_LIBRARIES} -lws2_32")
-
-  if(CLANG)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-exceptions ")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-exceptions ")
-  endif()
-endif()
-
-# architecture
-if ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
-  set(ARCH_DIR "64-bit")
-elseif ( CMAKE_SIZEOF_VOID_P EQUAL 4 )
-  set(ARCH_DIR "32-bit")
-else()
-  message( FATAL_ERROR "Unsupported architecture, CMake will exit" )
-endif()
-
-# Specific Include Directories
-if(LINUX)
-  set(PLATFORM_INCLUDE_DIR
-    /usr/include
-    /usr/include/GLFW
-    /usr/local/include/GLFW
-  )
-else()
-  set(PLATFORM_INCLUDE_DIR
-    ${CMAKE_CURRENT_SOURCE_DIR}/external/glfw3/include/${PLATFORM_FOLDER}
-  )
-endif()
+if (CMAKE_FIND_ROOT_PATH AND USE_PREBUILT_LIBS)
+  # Adds cocos2d-x external folder to the list of valid include/library paths when cross-compiling and using prebuilds
+  set(CMAKE_FIND_ROOT_PATH ${CMAKE_FIND_ROOT_PATH} ${COCOS_EXTERNAL_DIR})
+endif ()
 
 include_directories(
-  ${PLATFORM_INCLUDE_DIR}
-  ${CMAKE_CURRENT_SOURCE_DIR}/cocos
   ${CMAKE_CURRENT_SOURCE_DIR}
-  ${CMAKE_CURRENT_SOURCE_DIR}/cocos/platform/${PLATFORM_FOLDER}
+  ${CMAKE_CURRENT_SOURCE_DIR}/cocos
+  ${CMAKE_CURRENT_SOURCE_DIR}/deprecated
+  ${CMAKE_CURRENT_SOURCE_DIR}/cocos/platform
   ${CMAKE_CURRENT_SOURCE_DIR}/extensions
   ${CMAKE_CURRENT_SOURCE_DIR}/external
 )
 
-# Specific Link Directories
-if(LINUX)
-  set(PLATFORM_LINK_DIR
-    /usr/local/lib
-    ${CMAKE_CURRENT_SOURCE_DIR}/external/${PLATFORM_FOLDER}-specific/fmod/prebuilt/${ARCH_DIR}
-  )
-  set(PLATFORM_FOLDER_ARCH
-      ${PLATFORM_FOLDER}/${ARCH_DIR}
-  )
-else()
-  set(PLATFORM_FOLDER_ARCH
-    ${PLATFORM_FOLDER}
-  )
-  set(PLATFORM_LINK_DIR
-   ${CMAKE_CURRENT_SOURCE_DIR}/external/glfw3/prebuilt/${PLATFORM_FOLDER_ARCH}
-  )
+if(USE_PREBUILT_LIBS)
+  include(CocosUsePrebuiltLibs)
 endif()
 
-link_directories(
-  ${PLATFORM_LINK_DIR}
-  ${CMAKE_CURRENT_SOURCE_DIR}/external/jpeg/prebuilt/${PLATFORM_FOLDER_ARCH}
-  ${CMAKE_CURRENT_SOURCE_DIR}/external/tiff/prebuilt/${PLATFORM_FOLDER_ARCH}
-  ${CMAKE_CURRENT_SOURCE_DIR}/external/webp/prebuilt/${PLATFORM_FOLDER_ARCH}
-  ${CMAKE_CURRENT_SOURCE_DIR}/external/png/prebuilt/${PLATFORM_FOLDER_ARCH}
-  ${CMAKE_CURRENT_SOURCE_DIR}/external/freetype2/prebuilt/${PLATFORM_FOLDER_ARCH}
-  ${CMAKE_CURRENT_SOURCE_DIR}/external/websockets/prebuilt/${PLATFORM_FOLDER_ARCH}
-  ${CMAKE_CURRENT_SOURCE_DIR}/external/chipmunk/prebuilt/${PLATFORM_FOLDER_ARCH}
-)
+include(BuildModules)
+BuildModules()
 
-# libcocos2d.a
-add_subdirectory(cocos)
+# build cpp-empty-test
+if(BUILD_CPP_EMPTY_TEST)
+  add_subdirectory(tests/cpp-empty-test)
+endif(BUILD_CPP_EMPTY_TEST)
+
+# build cpp-tests
+if(BUILD_CPP_TESTS)
+  add_subdirectory(tests/cpp-tests)
+endif(BUILD_CPP_TESTS)
 
 ## Scripting
-add_subdirectory(cocos/scripting/lua-bindings)
+if(BUILD_LUA_LIBS)
+    add_subdirectory(cocos/scripting/lua-bindings)
 
-# build tests
-add_subdirectory(tests/cpp-empty-test)
-add_subdirectory(tests/cpp-tests)
+  # build lua tests
+  if(BUILD_LUA_TESTS)
+    add_subdirectory(tests/lua-tests/project)
+    add_subdirectory(tests/lua-empty-test/project)
+  endif(BUILD_LUA_TESTS)
 
-add_subdirectory(tests/lua-tests/project)
-add_subdirectory(tests/lua-empty-test/project)
+endif(BUILD_LUA_LIBS)
+
+## JS
+if(BUILD_JS_LIBS)
+  add_subdirectory(cocos/scripting/js-bindings)
+
+  # build js tests
+  if(BUILD_JS_TESTS)
+    add_subdirectory(tests/js-tests/project)
+  endif(BUILD_JS_TESTS)
+
+endif(BUILD_JS_LIBS)

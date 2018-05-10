@@ -2,7 +2,7 @@
 Copyright (c) 2008-2010 Ricardo Quesada
 Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2011      Zynga Inc.
-Copyright (c) 2013-2014 Chukong Technologies Inc.
+Copyright (c) 2013-2017 Chukong Technologies Inc.
 
 http://www.cocos2d-x.org
 
@@ -28,13 +28,11 @@ THE SOFTWARE.
 #include "renderer/CCTextureAtlas.h"
 #include "platform/CCFileUtils.h"
 #include "base/CCDirector.h"
+#include "base/ccUTF8.h"
 #include "renderer/CCTextureCache.h"
-
-#include "deprecated/CCString.h"
 
 #if CC_LABELATLAS_DEBUG_DRAW
 #include "renderer/CCRenderer.h"
-#include "base/CCDirector.h"
 #endif
 
 NS_CC_BEGIN
@@ -71,7 +69,7 @@ LabelAtlas* LabelAtlas::create(const std::string& string, const std::string& cha
 bool LabelAtlas::initWithString(const std::string& string, const std::string& charMapFile, int itemWidth, int itemHeight, int startCharMap)
 {
     Texture2D *texture = Director::getInstance()->getTextureCache()->addImage(charMapFile);
-	return initWithString(string, texture, itemWidth, itemHeight, startCharMap);
+    return initWithString(string, texture, itemWidth, itemHeight, startCharMap);
 }
 
 bool LabelAtlas::initWithString(const std::string& string, Texture2D* texture, int itemWidth, int itemHeight, int startCharMap)
@@ -108,7 +106,7 @@ bool LabelAtlas::initWithString(const std::string& theString, const std::string&
     std::string pathStr = FileUtils::getInstance()->fullPathForFilename(fntFile);
     std::string relPathStr = pathStr.substr(0, pathStr.find_last_of("/"))+"/";
     
-    ValueMap dict = FileUtils::getInstance()->getValueMapFromFile(pathStr.c_str());
+    ValueMap dict = FileUtils::getInstance()->getValueMapFromFile(pathStr);
 
     CCASSERT(dict["version"].asInt() == 1, "Unsupported version. Upgrade cocos2d version");
 
@@ -119,7 +117,7 @@ bool LabelAtlas::initWithString(const std::string& theString, const std::string&
     unsigned int startChar = dict["firstChar"].asInt();
 
 
-    this->initWithString(theString, textureFilename.c_str(), width, height, startChar);
+    this->initWithString(theString, textureFilename, width, height, startChar);
 
     return true;
 }
@@ -233,6 +231,12 @@ void LabelAtlas::updateColor()
     if (_textureAtlas)
     {
         Color4B color4( _displayedColor.r, _displayedColor.g, _displayedColor.b, _displayedOpacity );
+        if (_isOpacityModifyRGB)
+        {
+            color4.r *= _displayedOpacity/255.0f;
+            color4.g *= _displayedOpacity/255.0f;
+            color4.b *= _displayedOpacity/255.0f;
+        }
         auto quads = _textureAtlas->getQuads();
         ssize_t length = _string.length();
         for (int index = 0; index < length; index++)
@@ -250,7 +254,7 @@ void LabelAtlas::updateColor()
 #if CC_LABELATLAS_DEBUG_DRAW
 void LabelAtlas::draw(Renderer *renderer, const Mat4 &transform, uint32_t flags)
 {
-    AtlasNode::draw(renderer, transform, transformUpdated);
+    AtlasNode::draw(renderer, transform, _transformUpdated);
 
     _debugDrawNode->clear();
     auto size = getContentSize();

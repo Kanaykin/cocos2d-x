@@ -1,6 +1,6 @@
 /****************************************************************************
  Copyright (c) 2014 cocos2d-x.org
- Copyright (c) 2014 Chukong Technologies Inc.
+ Copyright (c) 2014-2017 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -30,8 +30,8 @@ NS_CC_BEGIN
 
 EventFocus::EventFocus(ui::Widget *widgetLoseFocus, ui::Widget* widgetGetFocus)
 :Event(Type::FOCUS),
-_widgetLoseFocus(widgetLoseFocus),
-_widgetGetFocus(widgetGetFocus)
+_widgetGetFocus(widgetGetFocus),
+_widgetLoseFocus(widgetLoseFocus)
 {
     
 }

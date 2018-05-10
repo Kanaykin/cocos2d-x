@@ -2,7 +2,7 @@
 Copyright (c) 2008-2010 Ricardo Quesada
 Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2011      Zynga Inc.
-Copyright (c) 2013-2014 Chukong Technologies Inc.
+Copyright (c) 2013-2017 Chukong Technologies Inc.
 
 http://www.cocos2d-x.org
 
@@ -63,6 +63,7 @@ THE SOFTWARE.
 
 /** @def CC_SWAP
 simple macro that swaps 2 variables
+ @deprecated use std::swap() instead
 */
 #define CC_SWAP(x, y, type)    \
 {    type temp = (x);        \
@@ -91,7 +92,8 @@ simple macro that swaps 2 variables
  */
 #define CC_RADIANS_TO_DEGREES(__ANGLE__) ((__ANGLE__) * 57.29577951f) // PI * 180
 
-#define kRepeatForever (UINT_MAX -1)
+#define CC_REPEAT_FOREVER (UINT_MAX -1)
+#define kRepeatForever CC_REPEAT_FOREVER
 
 /** @def CC_BLEND_SRC
 default gl blend src function. Compatible with premultiplied alpha images.
@@ -122,7 +124,7 @@ do { \
   */
 #define CC_DIRECTOR_END()                                       \
 do {                                                            \
-    Director *__director = Director::getInstance();             \
+    Director *__director = cocos2d::Director::getInstance();             \
     __director->end();                                          \
 } while(0)
 
@@ -130,7 +132,7 @@ do {                                                            \
 On Mac it returns 1;
 On iPhone it returns 2 if RetinaDisplay is On. Otherwise it returns 1
 */
-#define CC_CONTENT_SCALE_FACTOR() Director::getInstance()->getContentScaleFactor()
+#define CC_CONTENT_SCALE_FACTOR() cocos2d::Director::getInstance()->getContentScaleFactor()
 
 /****************************/
 /** RETINA DISPLAY ENABLED **/
@@ -140,39 +142,39 @@ On iPhone it returns 2 if RetinaDisplay is On. Otherwise it returns 1
  Converts a rect in pixels to points
  */
 #define CC_RECT_PIXELS_TO_POINTS(__rect_in_pixels__)                                                                        \
-    Rect( (__rect_in_pixels__).origin.x / CC_CONTENT_SCALE_FACTOR(), (__rect_in_pixels__).origin.y / CC_CONTENT_SCALE_FACTOR(),    \
+    cocos2d::Rect( (__rect_in_pixels__).origin.x / CC_CONTENT_SCALE_FACTOR(), (__rect_in_pixels__).origin.y / CC_CONTENT_SCALE_FACTOR(),    \
             (__rect_in_pixels__).size.width / CC_CONTENT_SCALE_FACTOR(), (__rect_in_pixels__).size.height / CC_CONTENT_SCALE_FACTOR() )
 
 /** @def CC_RECT_POINTS_TO_PIXELS
  Converts a rect in points to pixels
  */
 #define CC_RECT_POINTS_TO_PIXELS(__rect_in_points_points__)                                                                        \
-    Rect( (__rect_in_points_points__).origin.x * CC_CONTENT_SCALE_FACTOR(), (__rect_in_points_points__).origin.y * CC_CONTENT_SCALE_FACTOR(),    \
+    cocos2d::Rect( (__rect_in_points_points__).origin.x * CC_CONTENT_SCALE_FACTOR(), (__rect_in_points_points__).origin.y * CC_CONTENT_SCALE_FACTOR(),    \
             (__rect_in_points_points__).size.width * CC_CONTENT_SCALE_FACTOR(), (__rect_in_points_points__).size.height * CC_CONTENT_SCALE_FACTOR() )
 
 /** @def CC_POINT_PIXELS_TO_POINTS
  Converts a rect in pixels to points
  */
 #define CC_POINT_PIXELS_TO_POINTS(__pixels__)                                                                        \
-Vec2( (__pixels__).x / CC_CONTENT_SCALE_FACTOR(), (__pixels__).y / CC_CONTENT_SCALE_FACTOR())
+cocos2d::Vec2( (__pixels__).x / CC_CONTENT_SCALE_FACTOR(), (__pixels__).y / CC_CONTENT_SCALE_FACTOR())
 
 /** @def CC_POINT_POINTS_TO_PIXELS
  Converts a rect in points to pixels
  */
 #define CC_POINT_POINTS_TO_PIXELS(__points__)                                                                        \
-Vec2( (__points__).x * CC_CONTENT_SCALE_FACTOR(), (__points__).y * CC_CONTENT_SCALE_FACTOR())
+cocos2d::Vec2( (__points__).x * CC_CONTENT_SCALE_FACTOR(), (__points__).y * CC_CONTENT_SCALE_FACTOR())
 
 /** @def CC_POINT_PIXELS_TO_POINTS
  Converts a rect in pixels to points
  */
 #define CC_SIZE_PIXELS_TO_POINTS(__size_in_pixels__)                                                                        \
-Size( (__size_in_pixels__).width / CC_CONTENT_SCALE_FACTOR(), (__size_in_pixels__).height / CC_CONTENT_SCALE_FACTOR())
+cocos2d::Size( (__size_in_pixels__).width / CC_CONTENT_SCALE_FACTOR(), (__size_in_pixels__).height / CC_CONTENT_SCALE_FACTOR())
 
 /** @def CC_POINT_POINTS_TO_PIXELS
  Converts a rect in points to pixels
  */
 #define CC_SIZE_POINTS_TO_PIXELS(__size_in_points__)                                                                        \
-Size( (__size_in_points__).width * CC_CONTENT_SCALE_FACTOR(), (__size_in_points__).height * CC_CONTENT_SCALE_FACTOR())
+cocos2d::Size( (__size_in_points__).width * CC_CONTENT_SCALE_FACTOR(), (__size_in_points__).height * CC_CONTENT_SCALE_FACTOR())
 
 
 #ifndef FLT_EPSILON
@@ -251,14 +253,65 @@ It should work same as apples CFSwapInt32LittleToHost(..)
     } while (false)
 #endif
 
+/**
+ * GL assertion that can be used for any OpenGL function call.
+ *
+ * This macro will assert if an error is detected when executing
+ * the specified GL code. This macro will do nothing in release
+ * mode and is therefore safe to use for realtime/per-frame GL
+ * function calls.
+ */
+#if defined(NDEBUG) || (defined(__APPLE__) && !defined(DEBUG))
+#define CC_GL_ASSERT( gl_code ) gl_code
+#else
+#define CC_GL_ASSERT( gl_code ) do \
+{ \
+gl_code; \
+__gl_error_code = glGetError(); \
+CC_ASSERT(__gl_error_code == GL_NO_ERROR, "Error"); \
+} while(0)
+#endif
+
+ /*********************************/
+ /** 64bits Program Sense Macros **/
+ /*********************************/
+#if defined(_M_X64) || defined(_WIN64) || defined(__LP64__) || defined(_LP64) || defined(__x86_64)
+#define CC_64BITS 1
+#else
+#define CC_64BITS 0
+#endif
+
+ /******************************************************************************************/
+ /** LittleEndian Sense Macro, from google protobuf see:                                  **/
+ /** https://github.com/google/protobuf/blob/master/src/google/protobuf/io/coded_stream.h **/
+ /******************************************************************************************/
+#ifdef _MSC_VER
+  #if defined(_M_IX86)
+    #define CC_LITTLE_ENDIAN 1
+  #else
+    #define CC_LITTLE_ENDIAN 0
+  #endif
+  #if _MSC_VER >= 1300 && !defined(__INTEL_COMPILER)
+    #pragma runtime_checks("c", off)
+  #endif
+#else
+  #include <sys/param.h>
+  #if ((defined(__LITTLE_ENDIAN__) && !defined(__BIG_ENDIAN__)) || \
+         (defined(__BYTE_ORDER) && __BYTE_ORDER == __LITTLE_ENDIAN)) 
+    #define CC_LITTLE_ENDIAN 1
+  #else
+    #define CC_LITTLE_ENDIAN 0
+  #endif
+#endif
+
 /** @def CC_INCREMENT_GL_DRAWS_BY_ONE
  Increments the GL Draws counts by one.
  The number of calls per frame are displayed on the screen when the Director's stats are enabled.
  */
-#define CC_INCREMENT_GL_DRAWS(__n__) Director::getInstance()->getRenderer()->addDrawnBatches(__n__)
+#define CC_INCREMENT_GL_DRAWS(__n__) cocos2d::Director::getInstance()->getRenderer()->addDrawnBatches(__n__)
 #define CC_INCREMENT_GL_DRAWN_BATCHES_AND_VERTICES(__drawcalls__, __vertices__) \
     do {                                                                \
-        auto __renderer__ = Director::getInstance()->getRenderer();     \
+        auto __renderer__ = cocos2d::Director::getInstance()->getRenderer();     \
         __renderer__->addDrawnBatches(__drawcalls__);                   \
         __renderer__->addDrawnVertices(__vertices__);                   \
     } while(0)
@@ -270,6 +323,14 @@ It should work same as apples CFSwapInt32LittleToHost(..)
  Notification name when a SpriteFrame is displayed
  */
 #define AnimationFrameDisplayedNotification "CCAnimationFrameDisplayedNotification"
+
+/*******************/
+/** Notifications **/
+/*******************/
+/** @def Animate3DDisplayedNotification
+ Notification name when a frame in Animate3D is played
+ */
+#define Animate3DDisplayedNotification "CCAnimate3DDisplayedNotification"
 
 // new callbacks based on C++11
 #define CC_CALLBACK_0(__selector__,__target__, ...) std::bind(&__selector__,__target__, ##__VA_ARGS__)

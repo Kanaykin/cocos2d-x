@@ -33,7 +33,7 @@ void AnimationCurve<componentSize>::evaluate(float time, float* dst, EvaluateTyp
         break;
         case EvaluateType::INT_NEAR:
         {
-            float* src = t > 0.5f ? toValue : fromValue;
+            float* src = std::abs(t) > 0.5f ? toValue : fromValue;
             memcpy(dst, src, _componentSizeByte);
         }
         break;
@@ -46,7 +46,10 @@ void AnimationCurve<componentSize>::evaluate(float time, float* dst, EvaluateTyp
             else
                 Quaternion::slerp(Quaternion(toValue), Quaternion(fromValue), t, &quat);
             
-            dst[0] = quat.x, dst[1] = quat.y, dst[2] = quat.z, dst[3] = quat.w;
+            dst[0] = quat.x;
+            dst[1] = quat.y;
+            dst[2] = quat.z;
+            dst[3] = quat.w;
         }
         break;
         case EvaluateType::INT_USER_FUNCTION:
@@ -103,8 +106,8 @@ float AnimationCurve<componentSize>::getEndTime() const
 
 template <int componentSize>
 AnimationCurve<componentSize>::AnimationCurve()
-: _keytime(nullptr)
-, _value(nullptr)
+: _value(nullptr)
+, _keytime(nullptr)
 , _count(0)
 , _componentSizeByte(0)
 , _evaluateFun(nullptr)
@@ -114,8 +117,8 @@ AnimationCurve<componentSize>::AnimationCurve()
 template <int componentSize>
 AnimationCurve<componentSize>::~AnimationCurve()
 {
-    CC_SAFE_DELETE(_keytime);
-    CC_SAFE_DELETE(_value);
+    CC_SAFE_DELETE_ARRAY(_keytime);
+    CC_SAFE_DELETE_ARRAY(_value);
 }
 
 template <int componentSize>

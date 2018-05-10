@@ -1,10 +1,11 @@
-#include "lua_cocos2dx_manual.hpp"
+#include "scripting/lua-bindings/manual/cocos2d/lua_cocos2dx_manual.hpp"
 
 #if CC_USE_PHYSICS
-#include "tolua_fix.h"
-#include "LuaBasicConversions.h"
-#include "CCLuaValue.h"
-#include "CCLuaEngine.h"
+#include "scripting/lua-bindings/manual/tolua_fix.h"
+#include "scripting/lua-bindings/manual/LuaBasicConversions.h"
+#include "scripting/lua-bindings/manual/CCLuaValue.h"
+#include "scripting/lua-bindings/manual/CCLuaEngine.h"
+#include "2d/CCScene.h"
 
 #ifndef CC_SAFE_DELETE_ARRAY
 #define do { if(p) { delete[] (p); (p) = nullptr; } } while(0)
@@ -63,7 +64,7 @@ int lua_cocos2dx_physics_PhysicsBody_getJoints(lua_State* tolua_S)
         } while (0);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getJoints",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "getJoints",argc, 0);
     return 0;
     
 #if COCOS2D_DEBUG >= 1
@@ -122,7 +123,7 @@ int lua_cocos2dx_physics_PhysicsWorld_getScene(lua_State* tolua_S)
         }while (0);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getScene",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "getScene",argc, 0);
     return 0;
     
 #if COCOS2D_DEBUG >= 1
@@ -180,9 +181,10 @@ int lua_cocos2dx_physics_PhysicsWorld_rayCast(lua_State* tolua_S)
             return 0;
         cobj->rayCast(arg0, arg1, arg2, nullptr);
         toluafix_remove_function_by_refid(tolua_S, handler);
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "rayCast",argc, 4);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "rayCast",argc, 4);
     return 0;
     
 #if COCOS2D_DEBUG >= 1
@@ -236,9 +238,10 @@ int lua_cocos2dx_physics_PhysicsWorld_queryRect(lua_State* tolua_S)
             return 0;
         cobj->queryRect(arg0, arg1, nullptr);
         toluafix_remove_function_by_refid(tolua_S, handler);
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "queryRect",argc, 3);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "queryRect",argc, 3);
     return 0;
     
 #if COCOS2D_DEBUG >= 1
@@ -295,9 +298,10 @@ int lua_cocos2dx_physics_PhysicsWorld_queryPoint(lua_State* tolua_S)
             return 0;
         cobj->queryPoint(arg0, arg1, nullptr);
         toluafix_remove_function_by_refid(tolua_S, handler);
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "queryPoint",argc, 3);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "queryPoint",argc, 3);
     return 0;
     
 #if COCOS2D_DEBUG >= 1
@@ -420,7 +424,7 @@ int lua_cocos2dx_physics_PhysicsBody_createPolygon(lua_State* tolua_S)
         } while (0);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "createPolygon",argc, 2);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "createPolygon",argc, 2);
     return 0;
 #if COCOS2D_DEBUG >= 1
 tolua_lerror:
@@ -540,7 +544,7 @@ int lua_cocos2dx_physics_PhysicsBody_createEdgePolygon(lua_State* tolua_S)
         } while (0);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "createEdgePolygon",argc, 2);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "createEdgePolygon",argc, 2);
     return 0;
 #if COCOS2D_DEBUG >= 1
 tolua_lerror:
@@ -660,7 +664,7 @@ int lua_cocos2dx_physics_PhysicsBody_createEdgeChain(lua_State* tolua_S)
         } while (0);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "createEdgeChain",argc, 2);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "createEdgeChain",argc, 2);
     return 0;
 #if COCOS2D_DEBUG >= 1
 tolua_lerror:
@@ -702,7 +706,7 @@ int lua_cocos2dx_physics_PhysicsShape_recenterPoints(lua_State* tolua_S)
         vec2_array_to_luaval(tolua_S, arg0, arg1);
         CC_SAFE_DELETE_ARRAY(arg0);
         
-        return 0;
+        return 1;
     }
     if (argc == 2)
     {
@@ -723,9 +727,9 @@ int lua_cocos2dx_physics_PhysicsShape_recenterPoints(lua_State* tolua_S)
         cocos2d::PhysicsShape::recenterPoints(arg0, arg1, arg2);
         vec2_array_to_luaval(tolua_S, arg0, arg1);
         CC_SAFE_DELETE_ARRAY(arg0);
-        return 0;
+        return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "recenterPoints",argc, 2);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "recenterPoints",argc, 2);
     return 0;
 #if COCOS2D_DEBUG >= 1
 tolua_lerror:
@@ -734,7 +738,7 @@ tolua_lerror:
     return 0;
 }
 
-int lua_cocos2dx_physics_PhysicsShape_getPolyonCenter(lua_State* tolua_S)
+int lua_cocos2dx_physics_PhysicsShape_getPolygonCenter(lua_State* tolua_S)
 {
     int argc = 0;
     bool ok  = true;
@@ -754,7 +758,7 @@ int lua_cocos2dx_physics_PhysicsShape_getPolyonCenter(lua_State* tolua_S)
         cocos2d::Vec2* arg0;
         int arg1 = 0;
         do {
-            ok = luaval_to_array_of_vec2(tolua_S, 2, &arg0, &arg1, "cc.PhysicsShape:getPolyonCenter");
+            ok = luaval_to_array_of_vec2(tolua_S, 2, &arg0, &arg1, "cc.PhysicsShape:getPolygonCenter");
             if (nullptr == arg0){
                 LUA_PRECONDITION( arg0, "Invalid Native Object");
             }} while (0);
@@ -763,16 +767,16 @@ int lua_cocos2dx_physics_PhysicsShape_getPolyonCenter(lua_State* tolua_S)
             CC_SAFE_DELETE_ARRAY(arg0);
             return 0;
         }
-        cocos2d::Vec2 ret = cocos2d::PhysicsShape::getPolyonCenter(arg0, arg1);
+        cocos2d::Vec2 ret = cocos2d::PhysicsShape::getPolygonCenter(arg0, arg1);
         CC_SAFE_DELETE_ARRAY(arg0);
         vec2_to_luaval(tolua_S, ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "getPolyonCenter",argc, 2);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "getPolygonCenter",argc, 2);
     return 0;
 #if COCOS2D_DEBUG >= 1
 tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_physics_PhysicsShape_getPolyonCenter'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_physics_PhysicsShape_getPolygonCenter'.",&tolua_err);
 #endif
     return 0;
 }
@@ -806,9 +810,9 @@ int lua_cocos2dx_physics_PhysicsShapeBox_getPoints(lua_State* tolua_S)
         cocos2d::Vec2 arg0[4];
         cobj->getPoints(arg0);
         vec2_array_to_luaval(tolua_S, arg0, 4);
-        return 0;
+        return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getPoints",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "getPoints",argc, 1);
     return 0;
     
 #if COCOS2D_DEBUG >= 1
@@ -846,13 +850,13 @@ int lua_cocos2dx_physics_PhysicsShapePolygon_getPoints(lua_State* tolua_S)
     if (argc == 0)
     {
         int count = cobj->getPointsCount();
-        cocos2d::Vec2* arg0 = new cocos2d::Vec2[count];
+        cocos2d::Vec2* arg0 = new (std::nothrow) cocos2d::Vec2[count];
         cobj->getPoints(arg0);
         vec2_array_to_luaval(tolua_S, arg0, count);
         CC_SAFE_DELETE_ARRAY(arg0);
-        return 0;
+        return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getPoints",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "getPoints",argc, 1);
     return 0;
     
 #if COCOS2D_DEBUG >= 1
@@ -942,7 +946,7 @@ int lua_cocos2dx_physics_PhysicsShapePolygon_create(lua_State* tolua_S)
         object_to_luaval<cocos2d::PhysicsShapePolygon>(tolua_S, "cc.PhysicsShapePolygon",(cocos2d::PhysicsShapePolygon*)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "create",argc, 2);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "create",argc, 2);
     return 0;
 #if COCOS2D_DEBUG >= 1
 tolua_lerror:
@@ -984,7 +988,7 @@ int lua_cocos2dx_physics_PhysicsShapePolygon_calculateArea(lua_State* tolua_S)
         tolua_pushnumber(tolua_S,(lua_Number)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "calculateArea",argc, 2);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "calculateArea",argc, 2);
     return 0;
 #if COCOS2D_DEBUG >= 1
 tolua_lerror:
@@ -1051,7 +1055,7 @@ int lua_cocos2dx_physics_PhysicsShapePolygon_calculateMoment(lua_State* tolua_S)
         tolua_pushnumber(tolua_S,(lua_Number)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "calculateMoment",argc, 3);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "calculateMoment",argc, 3);
     return 0;
 #if COCOS2D_DEBUG >= 1
 tolua_lerror:
@@ -1087,13 +1091,13 @@ int lua_cocos2dx_physics_PhysicsShapeEdgeBox_getPoints(lua_State* tolua_S)
     if (argc == 0)
     {
         int count = cobj->getPointsCount();
-        cocos2d::Vec2* arg0 = new cocos2d::Vec2[count];
+        cocos2d::Vec2* arg0 = new (std::nothrow) cocos2d::Vec2[count];
         cobj->getPoints(arg0);
         vec2_array_to_luaval(tolua_S, arg0, count);
         CC_SAFE_DELETE_ARRAY(arg0);
-        return 0;
+        return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getPoints",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "getPoints",argc, 1);
     return 0;
     
 #if COCOS2D_DEBUG >= 1
@@ -1131,13 +1135,13 @@ int lua_cocos2dx_physics_PhysicsShapeEdgePolygon_getPoints(lua_State* tolua_S)
     if (argc == 0)
     {
         int count = cobj->getPointsCount();
-        cocos2d::Vec2* arg0 = new cocos2d::Vec2[count];
+        cocos2d::Vec2* arg0 = new (std::nothrow) cocos2d::Vec2[count];
         cobj->getPoints(arg0);
         vec2_array_to_luaval(tolua_S, arg0, count);
         CC_SAFE_DELETE_ARRAY(arg0);
-        return 0;
+        return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getPoints",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "getPoints",argc, 1);
     return 0;
     
 #if COCOS2D_DEBUG >= 1
@@ -1175,13 +1179,13 @@ int lua_cocos2dx_physics_PhysicsShapeEdgeChain_getPoints(lua_State* tolua_S)
     if (argc == 0)
     {
         int count = cobj->getPointsCount();
-        cocos2d::Vec2* arg0 = new cocos2d::Vec2[count];
+        cocos2d::Vec2* arg0 = new (std::nothrow) cocos2d::Vec2[count];
         cobj->getPoints(arg0);
         vec2_array_to_luaval(tolua_S, arg0, count);
         CC_SAFE_DELETE_ARRAY(arg0);
-        return 0;
+        return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getPoints",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "getPoints",argc, 1);
     return 0;
     
 #if COCOS2D_DEBUG >= 1
@@ -1268,11 +1272,11 @@ static int tolua_cocos2dx_EventListenerPhysicsContact_registerScriptHandler(lua_
                 };
             }
                 break;
-            case ScriptHandlerMgr::HandlerType::EVENT_PHYSICS_CONTACT_SEPERATE:
+            case ScriptHandlerMgr::HandlerType::EVENT_PHYSICS_CONTACT_SEPARATE:
             {
                 ScriptHandlerMgr::getInstance()->addObjectHandler((void*)self, handler, type);
                 
-                self->onContactSeperate = [handler](PhysicsContact& contact){
+                self->onContactSeparate = [handler](PhysicsContact& contact){
                     LuaStack* stack = LuaEngine::getInstance()->getLuaStack();
                     stack->pushObject(&contact, "cc.PhysicsContact");
                     stack->executeFunctionByHandler(handler, 1);
@@ -1286,7 +1290,7 @@ static int tolua_cocos2dx_EventListenerPhysicsContact_registerScriptHandler(lua_
         return 0;
     }
     
-    CCLOG("'registerScriptHandler' has wrong number of arguments: %d, was expecting %d\n", argc, 2);
+    luaL_error(tolua_S, "'registerScriptHandler' has wrong number of arguments: %d, was expecting %d\n", argc, 2);
     return 0;
     
 #if COCOS2D_DEBUG >= 1
@@ -1374,7 +1378,7 @@ int lua_cocos2dx_physics_PhysicsShapeEdgePolygon_create(lua_State* tolua_S)
         object_to_luaval<cocos2d::PhysicsShapeEdgePolygon>(tolua_S, "cc.PhysicsShapeEdgePolygon",(cocos2d::PhysicsShapeEdgePolygon*)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "create",argc, 2);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "create",argc, 2);
     return 0;
 #if COCOS2D_DEBUG >= 1
 tolua_lerror:
@@ -1461,7 +1465,7 @@ int lua_cocos2dx_physics_PhysicsShapeEdgeChain_create(lua_State* tolua_S)
         object_to_luaval<cocos2d::PhysicsShapeEdgeChain>(tolua_S, "cc.PhysicsShapeEdgeChain",(cocos2d::PhysicsShapeEdgeChain*)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "create",argc, 2);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "create",argc, 2);
     return 0;
 #if COCOS2D_DEBUG >= 1
 tolua_lerror:
@@ -1498,8 +1502,11 @@ int register_all_cocos2dx_physics_manual(lua_State* tolua_S)
         lua_pushstring(tolua_S,"recenterPoints");
         lua_pushcfunction(tolua_S,lua_cocos2dx_physics_PhysicsShape_recenterPoints );
         lua_rawset(tolua_S,-3);
+        lua_pushstring(tolua_S,"getPolygonCenter");
+        lua_pushcfunction(tolua_S,lua_cocos2dx_physics_PhysicsShape_getPolygonCenter );
+        lua_rawset(tolua_S,-3);
         lua_pushstring(tolua_S,"getPolyonCenter");
-        lua_pushcfunction(tolua_S,lua_cocos2dx_physics_PhysicsShape_getPolyonCenter );
+        lua_pushcfunction(tolua_S,lua_cocos2dx_physics_PhysicsShape_getPolygonCenter );
         lua_rawset(tolua_S,-3);
     }
     lua_pop(tolua_S, 1);

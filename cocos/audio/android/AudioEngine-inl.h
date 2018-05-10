@@ -1,5 +1,5 @@
 /****************************************************************************
- Copyright (c) 2014 Chukong Technologies Inc.
+ Copyright (c) 2014-2017 Chukong Technologies Inc.
 
  http://www.cocos2d-x.org
 
@@ -30,6 +30,7 @@
 #include <SLES/OpenSLES_Android.h>
 #include <string>
 #include <unordered_map>
+#include "base/CCRef.h"
 #include "base/ccUtils.h"
 
 #define MAX_AUDIOINSTANCES 24
@@ -37,33 +38,18 @@
 #define ERRORLOG(msg) log("fun:%s,line:%d,msg:%s",__func__,__LINE__,#msg)
 
 NS_CC_BEGIN
-    namespace experimental{
+
+class EventCustom;
+class EventListener;
+
+namespace experimental {
+
+class IAudioPlayer;
+class AudioPlayerProvider;
+
 class AudioEngineImpl;
 
-class AudioPlayer
-{
-public:
-    AudioPlayer();
-    ~AudioPlayer();
-
-    bool init(SLEngineItf engineEngine, SLObjectItf outputMixObject,const std::string& fileFullPath, float volume, bool loop);
-
-private:
-
-    SLObjectItf _fdPlayerObject;
-    SLPlayItf _fdPlayerPlay;
-    SLSeekItf _fdPlayerSeek;
-    SLVolumeItf _fdPlayerVolume;
-
-    float _duration;
-    int _audioID;
-
-    std::function<void (int, const std::string &)> _finishCallback;
-
-    friend class AudioEngineImpl;
-};
-
-class AudioEngineImpl
+class AudioEngineImpl : public cocos2d::Ref
 {
 public:
     AudioEngineImpl();
@@ -82,11 +68,15 @@ public:
     bool setCurrentTime(int audioID, float time);
     void setFinishCallback(int audioID, const std::function<void (int, const std::string &)> &callback);
 
-    void playerFinishCallback(SLPlayItf caller, SLuint32 playEvent);
+    void uncache(const std::string& filePath);
+    void uncacheAll();
+    void preload(const std::string& filePath, const std::function<void(bool)>& callback);
 
-    void uncache(const std::string& filePath){}
-    void uncacheAll(){}
+    void setAudioFocusForAllPlayers(bool isFocus);
 private:
+
+    void onEnterBackground(EventCustom* event);
+    void onEnterForeground(EventCustom* event);
 
     // engine interfaces
     SLObjectItf _engineObject;
@@ -96,9 +86,19 @@ private:
     SLObjectItf _outputMixObject;
 
     //audioID,AudioInfo
-    std::unordered_map<int, AudioPlayer>  _audioPlayers;
+    std::unordered_map<int, IAudioPlayer*>  _audioPlayers;
+    std::unordered_map<int, std::function<void (int, const std::string &)>> _callbackMap;
 
-    int currentAudioID;
+    // UrlAudioPlayers which need to resumed while entering foreground
+    std::unordered_map<int, IAudioPlayer*> _urlAudioPlayersNeedResume;
+
+    AudioPlayerProvider* _audioPlayerProvider;
+    EventListener* _onPauseListener;
+    EventListener* _onResumeListener;
+
+    int _audioIDIndex;
+    
+    bool _lazyInitLoop;
 };
 
 #endif // __AUDIO_ENGINE_INL_H_

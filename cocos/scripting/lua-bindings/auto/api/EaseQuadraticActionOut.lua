@@ -5,7 +5,7 @@
 -- @parent_module cc
 
 --------------------------------
---  creates the action 
+-- 
 -- @function [parent=#EaseQuadraticActionOut] create 
 -- @param self
 -- @param #cc.ActionInterval action
@@ -22,11 +22,18 @@
 -- @function [parent=#EaseQuadraticActionOut] update 
 -- @param self
 -- @param #float time
+-- @return EaseQuadraticActionOut#EaseQuadraticActionOut self (return value: cc.EaseQuadraticActionOut)
         
 --------------------------------
 -- 
 -- @function [parent=#EaseQuadraticActionOut] reverse 
 -- @param self
--- @return EaseQuadraticActionOut#EaseQuadraticActionOut ret (return value: cc.EaseQuadraticActionOut)
+-- @return ActionEase#ActionEase ret (return value: cc.ActionEase)
+        
+--------------------------------
+-- 
+-- @function [parent=#EaseQuadraticActionOut] EaseQuadraticActionOut 
+-- @param self
+-- @return EaseQuadraticActionOut#EaseQuadraticActionOut self (return value: cc.EaseQuadraticActionOut)
         
 return nil
